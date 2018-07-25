@@ -13,7 +13,6 @@
     "lint": "eslint ./ --ignore-path .gitignore",
     "lint-fix": "npm run lint -- --fix",
     "precommit": "# lint-staged # un-comment to enable",
-    "prepare": "if [ -d .git ]; then npm-merge-driver install; fi",
     "prettify": "prettier --write \"**/*.{js,jsx,json,css,scss,md}\"",
     "postinstall": "touch secrets.js & npm run build-client",
     "seed": "node script/seed.js",
@@ -56,10 +55,7 @@
     "redux-logger": "^2.8.1",
     "redux-thunk": "^2.2.0",
     "sequelize": "^4.3.1",
-    "socket.io": "^2.0.3",
-    "travis": "^0.1.1",
-    "travis-ci": "^2.1.1",
-    "travis-encrypt": "^2.1.1"
+    "socket.io": "^2.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.40",
