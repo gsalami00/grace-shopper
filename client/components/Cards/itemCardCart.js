@@ -4,7 +4,6 @@ export default class ItemCardCart extends Component {
   render() {
     return (
       <div>
-
       </div>
     )
   }

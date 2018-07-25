@@ -35,5 +35,4 @@ const CheckoutSummaryCard = (props) => {
   )
 }
 
-
 export default CheckoutSummaryCard
