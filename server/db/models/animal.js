@@ -10,7 +10,7 @@ const Animal = db.define('animal', {
     type: Sequelize.TEXT
   },
   price: {
-    type: Sequelize.NUMBER
+    type: Sequelize.INTEGER
   },
   imageUrl: {
     type: Sequelize.TEXT,
