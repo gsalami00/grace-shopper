@@ -8,7 +8,7 @@ class ProductList extends Component {
       <SingleProductCard
         species="Goat"
         description="One hell of a goat!"
-        price={12300}
+        price={12325}
         imageUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hausziege_04.jpg/1024px-Hausziege_04.jpg"
       />
     )

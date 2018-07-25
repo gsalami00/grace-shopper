@@ -10,14 +10,16 @@ const SingleProductCard = props => (
     </Card.Content>
     <Card.Content extra>
       <span>${props.price / 100}</span>
-      <Button animated="vertical">
-        <Button.Content hidden>Add</Button.Content>
-        <Button.Content visible>
-          <Icon name="shop" />
-        </Button.Content>
-      </Button>
+      <div className="right-aligned-button">
+        <Button animated="vertical">
+          <Button.Content hidden>Add</Button.Content>
+          <Button.Content visible>
+            <Icon name="shop" />
+          </Button.Content>
+        </Button>
+      </div>
     </Card.Content>
   </Card>
-);
+)
 
-export default SingleProductCard;
+export default SingleProductCard
