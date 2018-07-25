@@ -17,7 +17,7 @@ const CartItem = require('./cartItem');
 CartItem.belongsTo(User);
 User.hasMany(CartItem);
 CartItem.hasOne(Animal);
-Animal.belongsToMany(CartItem);
+Animal.belongsToMany(CartItem, {through: "CartTable"});
 
 
  module.exports = {
