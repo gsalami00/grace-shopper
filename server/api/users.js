@@ -3,6 +3,19 @@ const {User} = require('../db/models')
 module.exports = router
 
 
+router.get('/findAllUsers', async (req, res, next) => {
+  try {
+    const users = await User.findAll({
+      // explicitly select only the id and email fields - even though
+      // users' passwords are encrypted, it won't help if we just
+      // send everything to anyone who asks!
+      attributes: ['id', 'firstName', 'lastName', 'email', 'address']
+    })
+    res.json(users);
+  } catch (err) {
+    next(err);
+  }
+})
 
 router.get('/:userId', async(req, res, next) => {
   try {
@@ -12,6 +25,7 @@ router.get('/:userId', async(req, res, next) => {
     next(err);
   }
 })
+
 
 
 router.get('/', async (req, res, next) => {
@@ -39,12 +53,13 @@ router.post('/', async (req, res, next) => {
 
 router.put('/:userId', async(req, res, next) => {
   try {
-    const updateUser = await User.update(req.body, {
+    await User.update(req.body, {
       where: {
         id: req.params.userId
       }
     })
-    res.json(updateUser);
+    const user = await User.findById(req.params.userId);
+    res.json(user);
   } catch (error) {
     next(error);
   }
@@ -56,6 +71,7 @@ router.delete('/:userId', async (req, res, next) => {
     await User.destroy({where: {
       id: req.params.userId
     }})
+    res.send("Successfully deleted.")
   } catch (error) {
     next(error);
   }
