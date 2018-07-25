@@ -1,8 +1,12 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import SingleProductCard from './SingleProductCard'
+import {fetchAnimals} from '../../store/animals'
 
 class ProductList extends Component {
+  componentDidMount(){
+    fetchAnimals();
+  }
   render() {
     return (
       <SingleProductCard
@@ -15,6 +19,10 @@ class ProductList extends Component {
   }
 }
 
-const mapState = state => {}
-const mapDispatch = dispatch => {}
+const mapState = state => ({
+  animals: state.animals
+});
+const mapDispatch = dispatch => ({
+  fetchAnimals: () => dispatch(fetchAnimals)
+});
 export default connect(mapState, mapDispatch)(ProductList)
