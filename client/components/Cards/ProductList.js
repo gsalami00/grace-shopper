@@ -11,10 +11,11 @@ class ProductList extends Component {
     const animals = this.props.animals
     return animals.map(animal => (
       <SingleProductCard
-        species="Goat"
-        description="One hell of a goat!"
-        price={12325}
-        imageUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hausziege_04.jpg/1024px-Hausziege_04.jpg"
+        key={animal.id}
+        species={animal.species}
+        description={animal.description}
+        price={animal.price}
+        imageUrl={animal.imageUrl}
       />
     ))
   }
