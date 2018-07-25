@@ -19,3 +19,8 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.right-aligned-navbar {
+ float: right;
+ margin-right: 20px;
+}
