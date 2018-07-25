@@ -3,28 +3,37 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
-import { Button } from 'semantic-ui-react'
+import {Button, Icon} from 'semantic-ui-react'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
-    <h1>BOILERMAKER</h1>
     <nav>
-      {isLoggedIn ? (
-        <div>
-          {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
-        </div>
-      ) : (
-        <div>
-          {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-          {/* <Link to="/test">Test </Link>  */}
-        </div>
-      )}
+      <Link to="/home">
+        <h2>livestockr</h2>
+      </Link>
+      <div className="right-aligned-navbar">
+        {isLoggedIn ? (
+          <React.Fragment>
+            {/* The navbar will show these links after you log in */}
+            <Link to="/home">Home</Link>
+            <a href="#" onClick={handleClick}>
+              Logout
+            </a>
+          </React.Fragment>
+        ) : (
+          <React.Fragment>
+            {/* The navbar will show these links before you log in */}
+            <Link to="/login">Login</Link>
+            <Link to="/signup">Sign Up</Link>
+          </React.Fragment>
+        )}
+        <Button animated="vertical">
+          <Button.Content hidden>Cart</Button.Content>
+          <Button.Content visible>
+            <Icon name="shop" />
+          </Button.Content>
+        </Button>
+      </div>
     </nav>
     <hr />
   </div>

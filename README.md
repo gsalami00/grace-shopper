@@ -1,8 +1,7 @@
-<<<<<<< HEAD
 # grace-shopper
 Fullstack 1806 Grace Shopper Group project
 =======
-# Boilermaker
+# Livestockr
 
 _Good things come in pairs_
 

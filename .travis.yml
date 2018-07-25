@@ -14,14 +14,14 @@ notifications:
 install:
   - npm ci # faster, goes only from package-lock
 before_script:
-  - psql -c 'create database "boilermaker-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
+  - psql -c 'create database "livestockr";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
 
-# before_deploy:
-#   - npm run build-client # make the bundle
-#   - rm -rf node_modules # omit from the tarball, since we skip cleanup
-# deploy:
-#   skip_cleanup: true # prevents travis from deleting the build
-#   provider: heroku
-#   app: YOUR-HEROKU-APP-NAME-HERE # see README
-#   api_key:
-#     secure: YOUR-***ENCRYPTED***-API-KEY-HERE # see README
+before_deploy:
+  - npm run build-client # make the bundle
+  - rm -rf node_modules # omit from the tarball, since we skip cleanup
+deploy:
+  skip_cleanup: true # prevents travis from deleting the build
+  provider: heroku
+  app: salty-earth-17929
+  api_key:
+    secure: "DRzOv/hZzsMF7s+gRKVUfLhZJw/z55K9IbTYefwNaoK5J535qTSkCrZyrUsmFywnYdqnlxfX8r/9Qrcm9Hpw5WasiyaRH8NmaYOrRBbvd9aXasPtT/meeaMeP9LFNwStelC2v2EY5gDz6KzI3QW4I6g7etn3s/LaictqLZ3t5LyUrAoOe4sYdkIXGKXs8eFYAzJST557UjHSW7e88QRkAnxDwEL4WaEsBSPqGTJ5WxCayIDef2Twt+JW1tf03NZ84L7Jk2X36U75mvMMCEA4h6Jr+K/OotZVSXORti6trnbuufi5eT53lZcbeHMUnIwR78brIrz7rsxb+7VTygH4E8yUNL5ZOSdOahIeGJlR/y4Vr5t8EV6G8996Jppz8s3WadTcmYBzqDalRdAfxeTqwkKI04+NhuLsxdXZXG2zad22guYUHBgcLsSAn8JCIAGH4SXlTZRHpaQdDA9mWPS2IclzZrmpkPFCmMIPU9HnTi4NZXuCPB8jVjX9OG7KTMFGhzCoBZ90XrIbBvlTOueGGShWSQ3VbVF1hc1bhJdqd9OqO7N81/2wPxMfk9oSnM7Y8NckDVkFjF1LIJ+iFjz7wc7ro9CXchir4W4CVWPIo4NyzloTOWDqGBbXPRUl7RflBNwGxTugVdypClmQ/8CVoth/7Os5DkcmNkxOLumxw1c="
