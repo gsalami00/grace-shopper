@@ -2,6 +2,18 @@ const router = require('express').Router()
 const {User} = require('../db/models')
 module.exports = router
 
+
+
+router.get('/:userId', async(req, res, next) => {
+  try {
+    const user = await User.findById(req.params.userId);
+    res.json(user);
+  } catch (err) {
+    next(err);
+  }
+})
+
+
 router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll({
@@ -10,8 +22,41 @@ router.get('/', async (req, res, next) => {
       // send everything to anyone who asks!
       attributes: ['id', 'email']
     })
-    res.json(users)
+    res.json(users);
   } catch (err) {
-    next(err)
+    next(err);
+  }
+})
+
+router.post('/', async (req, res, next) => {
+  try {
+    const newUser = await User.create(req.body);
+    res.json(newUser);
+  } catch (error) {
+    next(error);
+  }
+})
+
+router.put('/:userId', async(req, res, next) => {
+  try {
+    const updateUser = await User.update(req.body, {
+      where: {
+        id: req.params.userId
+      }
+    })
+    res.json(updateUser);
+  } catch (error) {
+    next(error);
+  }
+})
+
+
+router.delete('/:userId', async (req, res, next) => {
+  try {
+    await User.destroy({where: {
+      id: req.params.userId
+    }})
+  } catch (error) {
+    next(error);
   }
 })
