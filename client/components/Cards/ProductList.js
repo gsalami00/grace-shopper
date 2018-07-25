@@ -5,9 +5,11 @@ import {fetchAnimals} from '../../store/animals'
 
 class ProductList extends Component {
   componentDidMount(){
-    fetchAnimals();
+    this.props.fetchAnimals();
   }
   render() {
+    console.log(this.props.animals);
+    
     return (
       <SingleProductCard
         species="Goat"
