@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
+import { connect } from 'react-redux'
 import {Card, Icon, Image, Button, Header, Modal} from 'semantic-ui-react'
-
+import { postCartItem } from '../../store/'
 class SingleProductCard extends Component {
   constructor(props) {
     super(props)
@@ -18,6 +19,9 @@ class SingleProductCard extends Component {
       showModal: true
     })
   }
+  addToCart() {
+    this.props.postCartItem()
+  }
   render() {
     const price = (this.props.price / 100).toFixed(2);
     return (
@@ -29,7 +33,7 @@ class SingleProductCard extends Component {
         <Card.Content extra>
           <span>${price}</span>
           <div className="right-aligned-button">
-            <Button animated="vertical">
+            <Button animated="vertical" onClick={this.addToCart}>
               <Button.Content hidden>Add</Button.Content>
               <Button.Content visible>
                 <Icon name="shop" />
@@ -78,4 +82,9 @@ class SingleProductCard extends Component {
   }
 }
 
-export default SingleProductCard
+const mapDispatch = (dispatch) => ({
+  postCartItem: (cartObj) => dispatch(postCartItem(cartObj))
+});
+
+
+export default connect(null, mapDispatch)(SingleProductCard)

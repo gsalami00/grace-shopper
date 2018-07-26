@@ -33,6 +33,14 @@ export const fetchCartItems = () => async dispatch => {
   }
 }
 
+export const postCartItem = (cartItem) => async dispatch => {
+  try {
+    const { data } = await axios.post('/api/cart', cartItem);
+    dispatch(addCartItem(data));
+  } catch(err) {
+    console.log(err)
+  }
+}
 /**
  * REDUCER
  */
