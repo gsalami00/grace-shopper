@@ -28,3 +28,8 @@ form div {
 .right-aligned-button {
   float: right;
 }
+
+.modal-image {
+  width: 300px;
+  height: auto;
+}
