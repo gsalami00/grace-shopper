@@ -82,3 +82,17 @@ div.field.update-cart-dropdown {
 .clear {
   clear: both;
 }
+
+.order-history-title {
+  font-size: 1em;
+  font-weight: 700;
+}
+
+.edit-container {
+  padding: 0px 10px 10px;
+  text-align: right;
+}
+
+.centered-container {
+  text-align: center;
+}
