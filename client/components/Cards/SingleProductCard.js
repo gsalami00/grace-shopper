@@ -37,8 +37,6 @@ class SingleProductCard extends Component {
               </Button.Content>
             </Button>
             <Modal
-              // closeIcon
-              // onClose={this.closeModal}
               open={this.state.showModal}
               trigger={
                 <Button onClick={() => this.setState({showModal: true})}>
