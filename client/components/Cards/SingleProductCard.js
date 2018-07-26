@@ -19,6 +19,7 @@ class SingleProductCard extends Component {
     })
   }
   render() {
+    const price = (this.props.price / 100).toFixed(2);
     return (
       <Card className="single-card-tile">
         <Image src={this.props.imageUrl} />
@@ -27,7 +28,7 @@ class SingleProductCard extends Component {
           {/* <Card.Description>{props.description}</Card.Description> */}
         </Card.Content>
         <Card.Content extra>
-          <span>${(this.props.price / 100).toFixed(2)}</span>
+          <span>${price}</span>
           <div className="right-aligned-button">
             <Button animated="vertical">
               <Button.Content hidden>Add</Button.Content>
@@ -46,11 +47,8 @@ class SingleProductCard extends Component {
               }
             >
               <Modal.Header>
-                <div className="species-name">{this.props.species}</div>
-
-                {/* <Button onClick={() => this.setState({showModal: false})}> */}
+                <div className="species-name">{this.props.species + " - $" + price}</div>
                 <i
-                  size="60px"
                   id="exit-modal"
                   className="modal-close window close icon"
                   onClick={() => this.setState({showModal: false})}
@@ -63,8 +61,16 @@ class SingleProductCard extends Component {
                 </div>
                 <div className="modal-description">
                   <Modal.Description>
-                    <h2>{this.props.description}</h2>
+                    <p>{this.props.description}</p>
                   </Modal.Description>
+                </div>
+                <div className="modal-cart">
+                  <Button animated="vertical">
+                    <Button.Content hidden>Add</Button.Content>
+                    <Button.Content visible>
+                      <Icon name="shop" />
+                    </Button.Content>
+                  </Button>
                 </div>
               </Modal.Content>
             </Modal>
