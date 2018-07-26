@@ -40,12 +40,19 @@ form div {
   padding-right: 5px;
 }
 
-#exit-modal{
-  float: left;
-  width:   100%;
+#exit-modal {
+  float: right;
   color: darkred;
 }
 
+
+.species-name {
+  float: left;
+}
+
+i.modal-close::before {
+  font-size: 1.5em;
+=======
 #exit-modal::before{
   float: right;
   margin-right: 5px;
@@ -106,6 +113,12 @@ div.field.update-cart-dropdown {
   clear: both;
 }
 
+.single-card-tile {
+  margin: 1em 1em !important;
+  display: inline-block !important;
+  width: 23% !important;
+}
+  
 .order-history-title {
   font-size: 1em;
   font-weight: 700;

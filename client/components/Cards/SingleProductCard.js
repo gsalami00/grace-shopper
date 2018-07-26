@@ -20,7 +20,7 @@ class SingleProductCard extends Component {
   }
   render() {
     return (
-      <Card>
+      <Card className="single-card-tile">
         <Image src={this.props.imageUrl} />
         <Card.Content>
           <Card.Header>{this.props.species}</Card.Header>
@@ -46,9 +46,16 @@ class SingleProductCard extends Component {
               }
             >
               <Modal.Header>
-                {this.props.species}
+                <div className="species-name">{this.props.species}</div>
+
                 {/* <Button onClick={() => this.setState({showModal: false})}> */}
-                <i size="60px" id="exit-modal" className="window close icon" onClick={() => this.setState({showModal: false})}/>
+                <i
+                  size="60px"
+                  id="exit-modal"
+                  className="modal-close window close icon"
+                  onClick={() => this.setState({showModal: false})}
+                />
+                <div className="clear" />
               </Modal.Header>
               <Modal.Content image>
                 <div className="image content" id="modal-image">
