@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 import {Button, Icon} from 'semantic-ui-react'
+import NavCart from './NavCart'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
@@ -28,12 +29,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
             {/* <Link to="/test">Test</Link> */}
           </React.Fragment>
         )}
-        <Button animated="vertical">
-          <Button.Content hidden>Cart</Button.Content>
-          <Button.Content visible>
-            <Icon name="shop" />
-          </Button.Content>
-        </Button>
+        <NavCart />
       </div>
     </nav>
     <hr />
