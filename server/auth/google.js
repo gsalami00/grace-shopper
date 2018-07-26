@@ -34,8 +34,6 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
       const email = profile.emails[0].value
       const firstName = profile.name.givenName;
       const lastName = profile.name.familyName;
-      console.log(profile.name);
-
 
       User.findOrCreate({
         where: {googleId, firstName, lastName},
