@@ -26,7 +26,8 @@ const Navbar = ({handleClick, isLoggedIn}) => (
             {/* The navbar will show these links before you log in */}
             <Link to="/login">Login</Link>
             <Link to="/signup">Sign Up</Link>
-            {/* <Link to="/test">Test</Link> */}
+            <Link to="/view-profile">View Profile</Link>
+            <Link to="/view-cart">View Cart</Link>
           </React.Fragment>
         )}
         <NavCart />
