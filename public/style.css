@@ -52,7 +52,7 @@ form div {
 
 i.modal-close::before {
   font-size: 1.5em;
-=======
+}
 #exit-modal::before{
   float: right;
   margin-right: 5px;
@@ -133,3 +133,7 @@ div.field.update-cart-dropdown {
   text-align: center;
 }
 
+.modal-cart{
+  margin: 5px;
+  margin-top: auto;
+}
