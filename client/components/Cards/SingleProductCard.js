@@ -25,7 +25,6 @@ class SingleProductCard extends Component {
         <Image src={this.props.imageUrl} />
         <Card.Content>
           <Card.Header>{this.props.species}</Card.Header>
-          {/* <Card.Description>{props.description}</Card.Description> */}
         </Card.Content>
         <Card.Content extra>
           <span>${price}</span>
