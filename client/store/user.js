@@ -4,19 +4,23 @@ import history from '../history'
 /**
  * ACTION TYPES
  */
-const GET_USER = 'GET_USER'
-const REMOVE_USER = 'REMOVE_USER'
+export const GET_USER = 'GET_USER'
+export const REMOVE_USER = 'REMOVE_USER'
 
 /**
  * INITIAL STATE
  */
+const initialState = {
+  currentUser: {},
+}
+
 const defaultUser = {}
 
 /**
  * ACTION CREATORS
  */
-const getUser = user => ({type: GET_USER, user})
-const removeUser = () => ({type: REMOVE_USER})
+export const getUser = user => ({type: GET_USER, user})
+export const removeUser = () => ({type: REMOVE_USER})
 
 /**
  * THUNK CREATORS
@@ -59,12 +63,12 @@ export const logout = () => async dispatch => {
 /**
  * REDUCER
  */
-export default function(state = defaultUser, action) {
+export default function(state = initialState, action) {
   switch (action.type) {
     case GET_USER:
-      return action.user
+      return {...state, currentUser: action.user};
     case REMOVE_USER:
-      return defaultUser
+      return {...state, currentUser: defaultUser};
     default:
       return state
   }
