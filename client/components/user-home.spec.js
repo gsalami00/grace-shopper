@@ -16,7 +16,6 @@ const initialState = {
 const store = mockStore(initialState)
 
 import ProductList from './Cards/ProductList'
-import SingleProductCard from './Cards/SingleProductCard'
 
 const adapter = new Adapter()
 enzyme.configure({adapter})
@@ -72,7 +71,7 @@ describe('Front-End', () => {
       store.dispatch(action)
     })
 
-    it('empty array', () => {
+    it('It should have an initial state with an empty animals array', () => {
       expect(initialState).to.deep.equal({
         animals: []
       })
