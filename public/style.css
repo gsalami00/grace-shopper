@@ -21,8 +21,8 @@ form div {
 }
 
 .right-aligned-navbar {
- float: right;
- margin-right: 20px;
+  float: right;
+  margin-right: 20px;
 }
 
 .right-aligned-button {
@@ -40,15 +40,25 @@ form div {
   padding-right: 5px;
 }
 
-#exit-modal{
-  float: left;
-  width:   100%;
+#exit-modal {
+  float: right;
   color: darkred;
 }
 
-#exit-modal::before{
-  float: right;
-  margin-right: 5px;
-  width: 40px;
-  height: 40px;
+.species-name {
+  float: left;
+}
+
+i.modal-close::before {
+  font-size: 1.5em;
+}
+
+.clear {
+  clear: both;
+}
+
+.single-card-tile {
+  margin: 1em 1em !important;
+  display: inline-block !important;
+  width: 23% !important;
 }
