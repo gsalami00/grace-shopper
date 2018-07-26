@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {addCartItem} from '../store/cart'
+import {Link} from 'react-router-dom'
 import { Button, Icon, Label } from 'semantic-ui-react'
 
 class NavCart extends Component {
@@ -12,7 +13,7 @@ class NavCart extends Component {
       <Button as='div' labelPosition='right'>
         <Button icon>
           <Icon name='cart' />
-          Cart
+          <Link to="/view-cart">Cart</Link>
         </Button>
         <Label as='a' basic>
           {count}
@@ -23,7 +24,7 @@ class NavCart extends Component {
 
 }
 
-const mapState = state => ({
+const mapState = (state, ownProps) => ({
   count: state.cart.count,
 });
 
