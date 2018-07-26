@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const GET_ANIMALS = "GET_ANIMALS";
+export const GET_ANIMALS = "GET_ANIMALS";
 
 
-const setAnimals = (animals) => ({
+export const setAnimals = (animals) => ({
   type: GET_ANIMALS,
   animals
 })

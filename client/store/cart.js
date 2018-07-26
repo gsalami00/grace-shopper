@@ -4,8 +4,8 @@ import history from '../history'
 /**
  * ACTION TYPES
  */
-const SET_CART_ITEMS = 'SET_CART_ITEMS';
-const ADD_CART_ITEM = 'ADD_CART_ITEM';
+export const SET_CART_ITEMS = 'SET_CART_ITEMS';
+export const ADD_CART_ITEM = 'ADD_CART_ITEM';
 
 /**
  * INITIAL STATE
