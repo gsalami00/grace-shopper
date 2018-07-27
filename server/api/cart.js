@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { CartItem, User, Animal } = require('../db/models')
+const {CartItem, User, Animal} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -13,17 +13,29 @@ router.get('/', async (req, res, next) => {
       },
       include: [User, Animal]
     })
-    res.json(cartItems);
+    res.json(cartItems)
   } catch (err) {
     next(err)
   }
-});
+})
 
 router.post('/', async (req, res, next) => {
   try {
-    const newCartItem = await CartItem.create(req.body);
-    res.status(201).json(newCartItem);
+    let oldCartItem = await CartItem.findOne({where: {animalId: req.body.animal.id}})
+    if (oldCartItem) {
+      let newQuantity = oldCartItem.quantity + req.body.quantity;
+      oldCartItem = await oldCartItem.update({
+        quantity: newQuantity
+      })
+      res.status(201).json(oldCartItem)
+    } else {
+      const newCartItem = await CartItem.create({
+        animalId: req.body.animal.id,
+        quantity: req.body.quantity
+      })
+      res.status(201).json(newCartItem)
+    }
   } catch (err) {
     next(err)
   }
-});
+})
