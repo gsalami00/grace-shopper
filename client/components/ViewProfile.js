@@ -1,7 +1,31 @@
 import React, {Component} from 'react'
-import {Button, Icon} from 'semantic-ui-react'
+import {Button, Icon, Modal} from 'semantic-ui-react'
+import {fetchUser, editUser} from '../store/user'
+import {connect} from 'react-redux'
+import EditProfileForm from './EditProfileForm'
+import {modal} from '../store/forms'
 
-export default class ViewProfile extends Component {
+class ViewProfile extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      showModal: false
+    }
+  }
+  closeModal() {
+    this.setState({
+      showModal: false
+    })
+  }
+  openModal() {
+    this.setState({
+      showModal: true
+    })
+  }
+  componentDidMount() {
+    this.props.fetchUser(this.props.match.params.userId)
+  }
+
   render() {
     return (
       <div className="view-container">
@@ -9,7 +33,10 @@ export default class ViewProfile extends Component {
           <div className="ui segment">
             <h2 className="ui header">
               <i className="user circle icon" />
-              <div className="content">John Smith</div>
+              <div className="content">
+                {this.props.currentUser.firstName}{' '}
+                {this.props.currentUser.lastName}
+              </div>
             </h2>
           </div>
           <div className="ui segments">
@@ -17,22 +44,37 @@ export default class ViewProfile extends Component {
               <tbody>
                 <tr>
                   <td className="two wide column">Email</td>
-                  <td>john@smith.com</td>
+                  <td>{this.props.currentUser.email}</td>
                 </tr>
                 <tr>
                   <td>Address</td>
-                  <td>123 Main St. Nowhere Land, OH 13579</td>
+                  <td>{this.props.currentUser.address}</td>
                 </tr>
               </tbody>
             </table>
           </div>
           <div className="edit-container">
-            <Button animated="vertical">
-              <Button.Content hidden>
-                <Icon name="edit" />
-              </Button.Content>
-              <Button.Content visible>Edit Profile</Button.Content>
-            </Button>
+            <Modal
+              open={this.props.showModal}
+              trigger={
+                <Button onClick={() => this.props.modal(true)}>
+                  Edit Profile
+                </Button>
+              }
+            >
+              <Modal.Header>
+                <div className="species-name">Edit Profile</div>
+                <i
+                  id="exit-modal"
+                  className="modal-close window close icon"
+                  onClick={() => this.props.modal(false)}
+                />
+                <div className="clear" />
+              </Modal.Header>
+              <Modal.Content>
+                <EditProfileForm />
+              </Modal.Content>
+            </Modal>
           </div>
           <div className="ui segment">
             <p className="order-history-title">Order History</p>
@@ -48,3 +90,15 @@ export default class ViewProfile extends Component {
     )
   }
 }
+
+const mapState = state => ({
+  currentUser: state.user.currentUser,
+  showModal: state.forms.showModal,
+})
+const mapDispatch = dispatch => ({
+  fetchUser: () => dispatch(fetchUser),
+  editUser: () => dispatch(editUser),
+  modal: (bool) => dispatch(modal(bool))
+})
+
+export default connect(mapState, mapDispatch)(ViewProfile)

@@ -6,12 +6,12 @@ import history from '../history'
  */
 export const GET_USER = 'GET_USER'
 export const REMOVE_USER = 'REMOVE_USER'
-
+export const EDIT_PROFILE = 'EDIT_PROFILE';
 /**
  * INITIAL STATE
  */
 const initialState = {
-  currentUser: {},
+  currentUser: {}
 }
 
 const defaultUser = {}
@@ -21,10 +21,30 @@ const defaultUser = {}
  */
 export const getUser = user => ({type: GET_USER, user})
 export const removeUser = () => ({type: REMOVE_USER})
+export const editProfile = user => ({type: EDIT_PROFILE, user})
 
 /**
  * THUNK CREATORS
  */
+export const fetchUser = userId => async dispatch => {
+  try {
+    const res = await axios.get(`/users/${userId}`)
+    dispatch(getUser(res.data))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const editUser = (userId, user) => async dispatch => {
+  try {
+    const updated = await axios.put(`/api/users/${userId}`, user)
+    dispatch(editProfile(updated.data))
+    history.push(`/users/${userId}`)
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me')
@@ -67,9 +87,11 @@ export const logout = () => async dispatch => {
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_USER:
-      return {...state, currentUser: action.user};
+      return {...state, currentUser: action.user}
     case REMOVE_USER:
-      return {...state, currentUser: defaultUser};
+      return {...state, currentUser: defaultUser}
+    case EDIT_PROFILE:
+      return {...state, currentUser: action.user}
     default:
       return state
   }

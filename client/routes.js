@@ -31,7 +31,7 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route exact path="/home" component={UserHome} />
-            <Route exact path="/view-profile" component={ViewProfile} />
+            <Route path="/users/:userId" component={ViewProfile} />
             <Route exact path="/view-cart" component={ViewCart} />
             <Route exact path="/checkout" component={Checkout} />
           </Switch>
