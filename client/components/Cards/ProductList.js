@@ -7,6 +7,7 @@ class ProductList extends Component {
   componentDidMount() {
     this.props.fetchAnimals()
   }
+
   render() {
     const animals = this.props.animals
     return animals.map(animal => (
