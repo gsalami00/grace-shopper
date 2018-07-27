@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Card, Icon, Image, Button, Modal, Form} from 'semantic-ui-react'
 import {postCartItem} from '../../store/'
+
 class SingleProductCard extends Component {
   constructor(props) {
     super(props)
