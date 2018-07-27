@@ -45,6 +45,7 @@ export const auth = (email, password, method) => async dispatch => {
   try {
     dispatch(getUser(res.data))
     history.push('/home')
+    localStorage.removeItem('user');
   } catch (dispatchOrHistoryErr) {
     console.error(dispatchOrHistoryErr)
   }
