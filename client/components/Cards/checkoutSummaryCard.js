@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
 const CheckoutSummaryCard = (props) => {
   return (
@@ -29,7 +30,11 @@ const CheckoutSummaryCard = (props) => {
         </table>
       </div>
       <div className="extra content">
-        <button className="ui button">Checkout</button>
+        <button className="ui button">
+          <Link to="/checkout">
+            Checkout
+          </Link>
+        </button>
       </div>
     </div>
   )
