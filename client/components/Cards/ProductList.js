@@ -13,10 +13,7 @@ class ProductList extends Component {
     return animals.map(animal => (
       <SingleProductCard
         key={animal.id}
-        species={animal.species}
-        description={animal.description}
-        price={animal.price}
-        imageUrl={animal.imageUrl}
+        animal={animal}
       />
     ))
   }
