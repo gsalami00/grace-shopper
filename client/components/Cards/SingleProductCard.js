@@ -1,13 +1,16 @@
 import React, {Component} from 'react'
-import { connect } from 'react-redux'
-import {Card, Icon, Image, Button, Header, Modal} from 'semantic-ui-react'
-import { postCartItem } from '../../store/'
+import {connect} from 'react-redux'
+import {Card, Icon, Image, Button, Modal, Form} from 'semantic-ui-react'
+import {postCartItem} from '../../store/'
 class SingleProductCard extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      showModal: false
+      showModal: false,
+      quantity: ''
     }
+    this.setQuantity = this.setQuantity.bind(this);
+    this.addToCart = this.addToCart.bind(this);
   }
   closeModal() {
     this.setState({
@@ -19,20 +22,52 @@ class SingleProductCard extends Component {
       showModal: true
     })
   }
+  async setQuantity(event) {
+    console.log(event.target)
+    await this.setState({
+      quantity: event.target.value
+    })
+    console.log(this.state)
+  }
   addToCart() {
-    this.props.postCartItem()
+    if (!localStorage.getItem('user')) {
+      this.props.postCartItem({
+        animal: this.props.animal,
+        quantity: parseInt(this.state.quantity)
+      })
+    } else {
+      const cart = localStorage.getItem('cart')
+        ? JSON.parse(localStorage.getItem('cart'))
+        : []
+      cart.push({
+        animal: this.props.animal,
+        quantity: parseInt(this.state.quantity)
+      })
+      const stringifiedCart = JSON.stringify(cart)
+      localStorage.setItem('cart', stringifiedCart)
+    }
   }
   render() {
-    const price = (this.props.price / 100).toFixed(2);
+    const price = (this.props.animal.price / 100).toFixed(2)
     return (
       <Card className="single-card-tile">
-        <Image src={this.props.imageUrl} />
+        <Image src={this.props.animal.imageUrl} />
         <Card.Content>
-          <Card.Header>{this.props.species}</Card.Header>
+          <Card.Header>{this.props.animal.species}</Card.Header>
         </Card.Content>
         <Card.Content extra>
           <span>${price}</span>
           <div className="right-aligned-button">
+            <Form>
+              <Form.Field>
+                <label>Quantity</label>
+                <input
+                  type="text"
+                  value={this.state.quantity}
+                  onChange={this.setQuantity}
+                />
+              </Form.Field>
+            </Form>
             <Button animated="vertical" onClick={this.addToCart}>
               <Button.Content hidden>Add</Button.Content>
               <Button.Content visible>
@@ -48,7 +83,9 @@ class SingleProductCard extends Component {
               }
             >
               <Modal.Header>
-                <div className="species-name">{this.props.species + " - $" + price}</div>
+                <div className="species-name">
+                  {this.props.animal.species + ' - $' + price}
+                </div>
                 <i
                   id="exit-modal"
                   className="modal-close window close icon"
@@ -58,15 +95,25 @@ class SingleProductCard extends Component {
               </Modal.Header>
               <Modal.Content image>
                 <div className="image content" id="modal-image">
-                  <Image src={this.props.imageUrl} />
+                  <Image src={this.props.animal.imageUrl} />
                 </div>
                 <div className="modal-description">
                   <Modal.Description>
-                    <p>{this.props.description}</p>
+                    <p>{this.props.animal.description}</p>
                   </Modal.Description>
                 </div>
                 <div className="modal-cart">
-                  <Button animated="vertical">
+                  <Form>
+                    <Form.Field>
+                      <label>Quantity</label>
+                      <input
+                        type="text"
+                        value={this.state.quantity}
+                        onChange={this.setQuantity}
+                      />
+                    </Form.Field>
+                  </Form>
+                  <Button animated="vertical" onClick={this.addToCart}>
                     <Button.Content hidden>Add</Button.Content>
                     <Button.Content visible>
                       <Icon name="shop" />
@@ -82,9 +129,8 @@ class SingleProductCard extends Component {
   }
 }
 
-const mapDispatch = (dispatch) => ({
-  postCartItem: (cartObj) => dispatch(postCartItem(cartObj))
-});
-
+const mapDispatch = dispatch => ({
+  postCartItem: cartObj => dispatch(postCartItem(cartObj))
+})
 
 export default connect(null, mapDispatch)(SingleProductCard)
