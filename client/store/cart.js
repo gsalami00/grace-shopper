@@ -24,9 +24,9 @@ export const addCartItem = (cartItem) => ({type: ADD_CART_ITEM, cartItem});
 /**
  * THUNK CREATORS
  */
-export const fetchCartItems = () => async dispatch => {
+export const fetchCartItems = (userId) => async dispatch => {
   try {
-    const { data } = await axios.get('/api/cart');
+    const { data } = await axios.get(`/api/cart/${userId}`);
     dispatch(setCartItems(data));
   } catch (err) {
     console.error(err)

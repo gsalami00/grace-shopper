@@ -3,8 +3,10 @@ import ItemCartCard from './Cards/ItemCartCard'
 import CheckoutSummaryCard from './Cards/checkoutSummaryCard'
 import StripeCheckout from './StripeCheckout'
 import {Elements, StripeProvider} from 'react-stripe-elements';
+import { connect } from 'react-redux';
+import { fetchCartItems } from '../store/cart'
 
-export default class ViewCart extends Component {
+class ViewCart extends Component {
   render() {
     return (
         <div className="view-container">
@@ -19,3 +21,12 @@ export default class ViewCart extends Component {
     )
   }
 }
+const mapDispatch = dispatch => ({
+  fetchCartItems: userId => dispatch(fetchCartItems(userId))
+})
+
+const mapState = state => ({
+  userId: state.userId
+})
+
+export default connect(mapState, mapDispatch)(ViewCart)
