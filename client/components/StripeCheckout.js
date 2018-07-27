@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {Button} from 'semantic-ui-react'
 import {CardElement, injectStripe} from 'react-stripe-elements';
+import axios from 'axios';
+
 
 class StripeCheckout extends Component {
   constructor(props) {
@@ -11,13 +13,8 @@ class StripeCheckout extends Component {
   async submit(ev) {
     ev.preventDefault();
     let {token} = await this.props.stripe.createToken({name: "Name"});
-    let response = await fetch("/charge", {
-      method: "POST",
-      headers: {"Content-Type": "text/plain"},
-      body: token.id
-    });
-
-    if (response.ok) console.log("Purchase Complete!")
+    const res = await axios.post('/api/stripe/charge', {stripeToken: token.i });
+    console.log("response:", res);
   }
 
   render() {
