@@ -6,7 +6,7 @@ import {logout} from '../store'
 import {Button, Icon} from 'semantic-ui-react'
 import NavCart from './NavCart'
 
-const Navbar = ({handleClick, isLoggedIn}) => (
+const Navbar = ({handleClick, isLoggedIn, currentUserId}) => (
   <div>
     <nav>
       <Link to="/home">
@@ -17,11 +17,11 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           <React.Fragment>
             {/* The navbar will show these links after you log in */}
             <Link to="/home">Home</Link>
-            <Link to="/view-profile">View Profile</Link>
+            <Link to={`/users/${currentUserId}`}>View Profile</Link>
             <a href="#" onClick={handleClick}>
               Logout
             </a>
-            <NavCart/>
+            <NavCart />
           </React.Fragment>
         ) : (
           <React.Fragment>
@@ -41,7 +41,8 @@ const Navbar = ({handleClick, isLoggedIn}) => (
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.currentUser.id
+    isLoggedIn: !!state.user.currentUser.id,
+    currentUserId: state.user.currentUser.id
   }
 }
 
