@@ -7,6 +7,7 @@ import {Login, Signup, UserHome} from './components'
 import {me} from './store'
 import ViewCart from './components/ViewCart'
 import ViewProfile from './components/ViewProfile'
+import Main from './components/Main'
 /**
  * COMPONENT
  */
@@ -21,7 +22,7 @@ class Routes extends Component {
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
-        <Route exact path="/" component={ProductList} />
+        <Route exact path="/" component={Main} />
         <Route exact path="/home" component={ProductList} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/signup" component={Signup} />

@@ -118,7 +118,7 @@ div.field.update-cart-dropdown {
   display: inline-block !important;
   width: 23% !important;
 }
-  
+
 .order-history-title {
   font-size: 1em;
   font-weight: 700;
@@ -136,4 +136,22 @@ div.field.update-cart-dropdown {
 .modal-cart{
   margin: 5px;
   margin-top: auto;
+}
+
+.welcome-modal-container {
+  display: fixed;
+  width: 60%;
+  justify-content: space-between;
+}
+
+.modal-sign-up {
+  margin: 2% 1% 2% 0;
+}
+
+.modal-log-in {
+  margin: 2% 1% 2% 0;
+}
+
+.continue-guest {
+  margin: 4% 1% 4% 0;
 }
