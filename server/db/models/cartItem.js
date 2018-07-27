@@ -5,6 +5,9 @@ const cartItem = db.define('cart-item', {
   quantity: {
     type: Sequelize.INTEGER
   },
+  animalId: {
+    type: Sequelize.INTEGER
+  },
   paid: {
     type: Sequelize.BOOLEAN,
     defaultValue: false

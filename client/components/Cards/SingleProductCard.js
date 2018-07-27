@@ -8,7 +8,7 @@ class SingleProductCard extends Component {
     super(props)
     this.state = {
       showModal: false,
-      quantity: ''
+      quantity: '1'
     }
     this.setQuantity = this.setQuantity.bind(this)
     this.addToCart = this.addToCart.bind(this)
@@ -29,14 +29,13 @@ class SingleProductCard extends Component {
       quantity: event.target.value
     })
   }
-  addToCart() {
+  async addToCart() {
     const newCartItem = {
       animal: this.props.animal,
       quantity: parseInt(this.state.quantity)
     }
     console.log("local storage get item: ", localStorage.getItem('user'));
     if (!localStorage.getItem('user')) {
-      console.log("user logged in conditional");
       this.props.postCartItem(newCartItem)      //not hitting conditional, is it overwriting user in localstorage? 
     } else {
       let cart = localStorage.getItem('cart')
@@ -47,6 +46,7 @@ class SingleProductCard extends Component {
       const stringifiedCart = JSON.stringify(cart)
       localStorage.setItem('cart', stringifiedCart)
     }
+    await this.setState({quantity: '1'})
   }
   setCartItem(cart, newCartItem) {
     const itemIndex = cart.findIndex(
@@ -55,7 +55,7 @@ class SingleProductCard extends Component {
     if (itemIndex === -1) {
       cart.push(newCartItem)
     } else {
-      cart[itemIndex] = newCartItem
+      cart[itemIndex].quantity = cart[itemIndex].quantity + newCartItem.quantity;
     }
     return cart
   }
