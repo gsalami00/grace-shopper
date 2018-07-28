@@ -50,12 +50,13 @@ router.post('/', async (req, res, next) => {
 
 router.put('/:userId', async (req, res, next) => {
   try {
-    console.log('do i get here')
-    const updatedUser = await User.update(req.body, {
+    const {userId} = req.params;
+    await User.update(req.body, {
       where: {
-        id: req.params.userId
+        id: userId
       }
-    })
+    });
+    const updatedUser = await User.findById(userId);
     res.json(updatedUser)
   } catch (error) {
     next(error)
