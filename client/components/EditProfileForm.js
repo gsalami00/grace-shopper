@@ -18,7 +18,6 @@ class EditProfileForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
   componentDidMount() {
-    this.props.fetchUser()
     this.handleInitialize()
     this.setState({
       firstName: this.props.currentUser.firstName,
@@ -42,15 +41,10 @@ class EditProfileForm extends Component {
       [evt.target.name]: evt.target.value
     })
   }
-  handleSubmit(event) {
-    event.preventDefault()
+  handleSubmit() {
+    this.props.fetchUser()
     this.props.modal(true)
-    this.props.editUser(this.props.currentUser.id, {
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-      email: this.state.email,
-      address: this.state.address,
-    })
+    this.props.editUser(this.props.currentUser.id, this.state)
   }
   render() {
 
@@ -86,7 +80,7 @@ class EditProfileForm extends Component {
             onChange={this.handleChange}
           />
 
-          <button >Save changes</button>
+          <button>Save Changes</button>
         </form>
       </div>
     )
