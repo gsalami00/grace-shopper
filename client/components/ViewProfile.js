@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Button, Icon, Modal} from 'semantic-ui-react'
-import {fetchUser, editUser} from '../store/user'
+import {fetchUser, editUser, deleteUserProfile} from '../store/user'
 import {connect} from 'react-redux'
 import EditProfileForm from './EditProfileForm'
 import {modal} from '../store/forms'
@@ -25,7 +25,6 @@ class ViewProfile extends Component {
   componentDidMount() {
     this.props.fetchUser(this.props.match.params.userId)
   }
-
   render() {
     return (
       <div className="view-container">
@@ -84,7 +83,7 @@ class ViewProfile extends Component {
           </div>
         </div>
         <div className="centered-container">
-          <button className="delete-profile">Delete my Profile</button>
+          <button onClick={() => this.props.deleteUserProfile(this.props.currentUser.id, this.props.currentUser)} className="delete-profile">Delete my Profile</button>
         </div>
       </div>
     )
@@ -98,7 +97,8 @@ const mapState = state => ({
 const mapDispatch = dispatch => ({
   fetchUser: () => dispatch(fetchUser),
   editUser: () => dispatch(editUser),
-  modal: (bool) => dispatch(modal(bool))
+  modal: (bool) => dispatch(modal(bool)),
+  deleteUserProfile: (userId, user) => dispatch(deleteUserProfile(userId, user))
 })
 
 export default connect(mapState, mapDispatch)(ViewProfile)
