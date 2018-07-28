@@ -45,7 +45,6 @@ form div {
   color: darkred;
 }
 
-
 .species-name {
   float: left;
 }
@@ -53,7 +52,7 @@ form div {
 i.modal-close::before {
   font-size: 1.5em;
 }
-#exit-modal::before{
+#exit-modal::before {
   float: right;
   margin-right: 5px;
   width: 40px;
@@ -135,7 +134,7 @@ div.field.update-cart-dropdown {
   margin-bottom: 50px;
 }
 
-.modal-cart{
+.modal-cart {
   margin: 5px;
   margin-top: auto;
 }
@@ -196,8 +195,8 @@ div.field.update-cart-dropdown {
 
 .order-history-table {
   width: 37%;
-  float:left;
-  margin-right:2%;
+  float: left;
+  margin-right: 2%;
   margin-left: 1%;
 }
 
@@ -220,4 +219,11 @@ div.field.update-cart-dropdown {
   border: none !important;
   padding-bottom: 1px !important;
   box-shadow: none !important;
+}
+
+.added-to-cart-message {
+  float: right;
+  margin: 0px;
+  color: lightseagreen;
+  font-weight: normal;
 }

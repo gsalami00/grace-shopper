@@ -8,7 +8,8 @@ class SingleProductCard extends Component {
     super(props)
     this.state = {
       showModal: false,
-      quantity: '1'
+      quantity: '1',
+      showNotification: false
     }
     this.setQuantity = this.setQuantity.bind(this)
     this.addToCart = this.addToCart.bind(this)
@@ -34,9 +35,9 @@ class SingleProductCard extends Component {
       animal: this.props.animal,
       quantity: parseInt(this.state.quantity)
     }
-    console.log("local storage get item: ", localStorage.getItem('user'));
+    console.log('local storage get item: ', localStorage.getItem('user'))
     if (!localStorage.getItem('user')) {
-      this.props.postCartItem(newCartItem)      //not hitting conditional, is it overwriting user in localstorage? 
+      this.props.postCartItem(newCartItem) //not hitting conditional, is it overwriting user in localstorage?
     } else {
       let cart = localStorage.getItem('cart')
         ? JSON.parse(localStorage.getItem('cart'))
@@ -47,6 +48,14 @@ class SingleProductCard extends Component {
       localStorage.setItem('cart', stringifiedCart)
     }
     await this.setState({quantity: '1'})
+    this.setState({
+      showNotification: true
+    })
+    setTimeout(() => {
+      this.setState({
+        showNotification: false
+      })
+    }, 1750)
   }
   setCartItem(cart, newCartItem) {
     const itemIndex = cart.findIndex(
@@ -55,7 +64,7 @@ class SingleProductCard extends Component {
     if (itemIndex === -1) {
       cart.push(newCartItem)
     } else {
-      cart[itemIndex].quantity = cart[itemIndex].quantity + newCartItem.quantity;
+      cart[itemIndex].quantity = cart[itemIndex].quantity + newCartItem.quantity
     }
     return cart
   }
@@ -72,7 +81,14 @@ class SingleProductCard extends Component {
           <div className="right-aligned-button">
             <Form>
               <Form.Field>
-                <label>Quantity</label>
+                <label>
+                  Quantity
+                  {this.state.showNotification ? (
+                    <div className="added-to-cart-message">Added to Cart!</div>
+                  ) : (
+                    <p />
+                  )}
+                </label>
                 <input
                   type="text"
                   value={this.state.quantity}
