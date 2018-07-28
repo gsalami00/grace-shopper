@@ -4,6 +4,7 @@ import {fetchUser, editUser} from '../store/user'
 import {connect} from 'react-redux'
 import EditProfileForm from './EditProfileForm'
 import {modal} from '../store/forms'
+import OrderHistoryCard from './Cards/OrderHistoryCard'
 
 class ViewProfile extends Component {
   constructor(props) {
@@ -76,11 +77,14 @@ class ViewProfile extends Component {
               </Modal.Content>
             </Modal>
           </div>
+
           <div className="ui segment">
-            <p className="order-history-title">Order History</p>
-          </div>
-          <div className="ui segment">
-            <p>Insert Order History Here</p>
+            <h2 className="ui header">
+              <i className="history icon" />
+              <div className="content">Order History</div>
+            </h2>
+            <OrderHistoryCard />
+            <OrderHistoryCard />
           </div>
         </div>
         <div className="centered-container">
@@ -93,12 +97,12 @@ class ViewProfile extends Component {
 
 const mapState = state => ({
   currentUser: state.user.currentUser,
-  showModal: state.forms.showModal,
+  showModal: state.forms.showModal
 })
 const mapDispatch = dispatch => ({
   fetchUser: () => dispatch(fetchUser),
   editUser: () => dispatch(editUser),
-  modal: (bool) => dispatch(modal(bool))
+  modal: bool => dispatch(modal(bool))
 })
 
 export default connect(mapState, mapDispatch)(ViewProfile)
