@@ -18,13 +18,7 @@ export const modal = (bool) => ({type: SET_MODAL, showModal: bool});
 // /**
 //  * THUNK CREATORS
 //  */
-// export const modalView = bool => dispatch => {
-//   try {
-//     dispatch(modal(bool))
-//   } catch (err) {
-//     console.error(err)
-//   }
-// }
+
 // /**
 //  * REDUCER
 //  */

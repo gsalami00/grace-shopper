@@ -7,11 +7,12 @@ import history from '../history'
 export const GET_USER = 'GET_USER'
 export const REMOVE_USER = 'REMOVE_USER'
 export const EDIT_PROFILE = 'EDIT_PROFILE';
+
 /**
  * INITIAL STATE
  */
 const initialState = {
-  currentUser: {}
+  currentUser: {},
 }
 
 const defaultUser = {}
@@ -26,7 +27,17 @@ export const editProfile = user => ({type: EDIT_PROFILE, user})
 /**
  * THUNK CREATORS
  */
-export const fetchUser = userId => async dispatch => {
+export const deleteUserProfile = (userId, user) => async dispatch => {
+  try {
+    await axios.delete(`/api/users/${userId}`, user)
+    dispatch(removeUser())
+    history.push(`/home`)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const fetchUser = (userId) => async dispatch => {
   try {
     const res = await axios.get(`/users/${userId}`)
     dispatch(getUser(res.data))
