@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import RenderField from './RenderField'
 import {editUser, fetchUser} from '../store/user'
 import {modal} from '../store/forms'
+import {Button} from 'semantic-ui-react'
 
 class EditProfileForm extends Component {
   constructor() {
@@ -29,14 +30,14 @@ class EditProfileForm extends Component {
 
   handleInitialize() {
     const initData = {
-      "firstName": this.props.currentUser.firstName,
-      "lastName": this.props.currentUser.lastName,
-      "email": this.props.currentUser.email,
-      "address": this.props.currentUser.address
+      firstName: this.props.currentUser.firstName,
+      lastName: this.props.currentUser.lastName,
+      email: this.props.currentUser.email,
+      address: this.props.currentUser.address
     }
     this.props.initialize(initData)
   }
-  handleChange (evt) {
+  handleChange(evt) {
     this.setState({
       [evt.target.name]: evt.target.value
     })
@@ -47,11 +48,10 @@ class EditProfileForm extends Component {
     this.props.editUser(this.props.currentUser.id, this.state)
   }
   render() {
-
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-        <Field
+          <Field
             name="firstName"
             type="firstName"
             component={RenderField}
@@ -79,28 +79,29 @@ class EditProfileForm extends Component {
             label="Address"
             onChange={this.handleChange}
           />
-
-          <button>Save Changes</button>
+          <Button className="edit-profile-save-changes-btn">
+            Save Changes
+          </Button>
         </form>
       </div>
     )
   }
 }
 
-const form = reduxForm({ enableReinitialize: true,
-  destroyOnUnmount:false,
+const form = reduxForm({
+  enableReinitialize: true,
+  destroyOnUnmount: false,
   form: 'EditProfileForm'
 })
 
 const mapState = state => ({
-  currentUser: state.user.currentUser,
+  currentUser: state.user.currentUser
 })
 
 const mapDispatch = dispatch => ({
   fetchUser: () => dispatch(fetchUser),
   editUser: (userId, user) => dispatch(editUser(userId, user)),
-  modal: (bool) => dispatch(modal(bool))
-});
-
+  modal: bool => dispatch(modal(bool))
+})
 
 export default connect(mapState, mapDispatch)(form(EditProfileForm))
