@@ -8,9 +8,9 @@ import NavCart from './NavCart'
 
 const Navbar = ({handleClick, isLoggedIn, currentUserId}) => (
   <div>
-    <nav>
+    <nav className="nav-container">
       <Link to="/home">
-        <h2>livestockr</h2>
+        <h2 className="logo-text">livestockr</h2>
       </Link>
       <div className="right-aligned-navbar">
         {isLoggedIn ? (

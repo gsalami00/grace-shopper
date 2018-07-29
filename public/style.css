@@ -20,15 +20,49 @@ form div {
   display: inline-block;
 }
 
+.nav-container {
+  height: 70px;
+}
+
+.logo-text {
+  font-size: 2.75em;
+  margin-top: 0px;
+}
+
 .right-aligned-navbar {
   float: right;
   margin-right: 20px;
+  margin-top: 15px;
 }
 
 .right-aligned-button {
   float: right;
 }
 
+.cart-nav-btn {
+  height: 50px;
+  margin-top: 10px;
+}
+
+.cart-nav-icon {
+  padding-top: 8px !important;
+}
+
+.cart-link {
+  margin-top: 8px;
+}
+
+.cart-count {
+  padding-top: 10px;
+}
+
+.single-cart-quantity-form {
+  margin-bottom: 5px;
+}
+
+.add-cart-btn-home {
+  margin-top: -2px !important;
+}
 .modal-description {
   width: 60%;
   padding-left: 5px;
@@ -226,4 +260,143 @@ div.field.update-cart-dropdown {
   margin: 0px;
   color: lightseagreen;
   font-weight: normal;
+}
+
+.edit-profile-set-fields {
+  width: 100%;
+}
+
+.edit-profile-label {
+  width: 100%;
+  text-align: left;
+  color: #333;
+  font-size: 1em;
+}
+
+.edit-profile-input {
+  width: 97%;
+  border: 1px solid #d4d4d5;
+  height: 40px;
+  border-radius: 0.28571429rem;
+  padding: 0px 1.5%;
+  color: #333;
+}
+
+.edit-profile-save-changes-btn {
+  display: block !important;
+  margin: 0 auto !important;
+}
+
+@media screen and (max-width: 768px) {
+  .single-card-tile {
+    margin: 1em 1em !important;
+    display: inline-block !important;
+    width: 44% !important;
+  }
+  #modal-image {
+    width: 37%;
+    flex: none;
+  }
+  .modal-description {
+    width: 50%;
+    flex: none;
+  }
+  .ui.animated.button {
+    margin-top: 5px;
+  }
+  .order-history-table {
+    width: 100%;
+    float: none;
+    margin-right: 0;
+    margin-left: 0;
+    margin-bottom: 20px;
+  }
+  .order-history-table tr {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  .order-history-products {
+    width: 100%;
+    display: block;
+  }
+  .order-item-container {
+    border-bottom: none !important;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .single-card-tile {
+    margin: 1em 1em !important;
+    display: inline-block !important;
+    width: 90% !important;
+  }
+  #modal-image {
+    width: 100%;
+  }
+  .modal-description {
+    width: 100%;
+  }
+  .ui.animated.button {
+    margin-top: 5px;
+  }
+  .order-history-table {
+    width: 100%;
+    float: none;
+    margin-right: 0;
+    margin-left: 0;
+    margin-bottom: 20px;
+  }
+  .order-history-table tr {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  .order-history-products {
+    width: 100%;
+    display: block;
+  }
+  .order-item-container {
+    border-bottom: none !important;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .single-card-tile {
+    margin: 1em 1em !important;
+    display: inline-block !important;
+    width: 90% !important;
+  }
+  #modal-image {
+    width: 100%;
+  }
+  .modal-description {
+    width: 100%;
+  }
+  .ui.animated.button {
+    margin-top: 5px;
+  }
+  nav a {
+    display: inline-block;
+    margin: 0.75em;
+  }
+  .nav-container {
+    height: 146px;
+  }
+  .order-history-table {
+    width: 100%;
+    float: none;
+    margin-right: 0;
+    margin-left: 0;
+    margin-bottom: 20px;
+  }
+  .order-history-table tr {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  .order-history-products {
+    width: 100%;
+    display: block;
+  }
+  .order-item-container {
+    border-bottom: none !important;
+  }
 }

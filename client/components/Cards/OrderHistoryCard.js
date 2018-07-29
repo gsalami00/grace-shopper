@@ -6,7 +6,7 @@ const CheckoutSummaryCard = props => {
   return (
     <div className="ui segments order-history-main-container">
       <div className="order-history-container">
-        <h4 class="ui block header">ORDER # 1 DETAILS</h4>
+        <h4 className="ui block header">ORDER # 1 DETAILS</h4>
         <div className="order-history-table">
           <table className="ui definition table">
             <tbody>

@@ -79,7 +79,7 @@ class SingleProductCard extends Component {
         <Card.Content extra>
           <span>${price}</span>
           <div className="right-aligned-button">
-            <Form>
+            <Form className="single-cart-quantity-form">
               <Form.Field>
                 <label>
                   Quantity
@@ -96,7 +96,11 @@ class SingleProductCard extends Component {
                 />
               </Form.Field>
             </Form>
-            <Button animated="vertical" onClick={this.addToCart}>
+            <Button
+              className="add-cart-btn-home"
+              animated="vertical"
+              onClick={this.addToCart}
+            >
               <Button.Content hidden>Add</Button.Content>
               <Button.Content visible>
                 <Icon name="shop" />
