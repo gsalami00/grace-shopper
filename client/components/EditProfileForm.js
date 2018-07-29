@@ -1,7 +1,5 @@
 import React, {Component} from 'react'
-import {Field, reduxForm, initialize} from 'redux-form'
 import {connect} from 'react-redux'
-import RenderField from './RenderField'
 import {editUser, fetchUser} from '../store/user'
 import {modal} from '../store/forms'
 import {Button} from 'semantic-ui-react'
@@ -18,8 +16,12 @@ class EditProfileForm extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
+
   componentDidMount() {
     this.handleInitialize()
+  }
+
+  handleInitialize() {
     this.setState({
       firstName: this.props.currentUser.firstName,
       lastName: this.props.currentUser.lastName,
@@ -28,57 +30,57 @@ class EditProfileForm extends Component {
     })
   }
 
-  handleInitialize() {
-    const initData = {
-      firstName: this.props.currentUser.firstName,
-      lastName: this.props.currentUser.lastName,
-      email: this.props.currentUser.email,
-      address: this.props.currentUser.address
-    }
-    this.props.initialize(initData)
-  }
   handleChange(evt) {
     this.setState({
       [evt.target.name]: evt.target.value
     })
   }
-  handleSubmit() {
-    this.props.fetchUser()
-    this.props.modal(true)
+
+  handleSubmit(evt) {
+    evt.preventDefault();
+    this.props.modal(false)
     this.props.editUser(this.props.currentUser.id, this.state)
   }
+
   render() {
+    const {firstName, lastName, email, address} = this.state;
+
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <Field
-            name="firstName"
-            type="firstName"
-            component={RenderField}
-            label="First Name"
-            onChange={this.handleChange}
-          />
-          <Field
-            name="lastName"
-            type="lastName"
-            component={RenderField}
-            label="Last Name"
-            onChange={this.handleChange}
-          />
-          <Field
-            name="email"
-            type="email"
-            component={RenderField}
-            label="Email"
-            onChange={this.handleChange}
-          />
-          <Field
-            name="address"
+
+          <label>First Name</label>
+          <input
             type="text"
-            component={RenderField}
-            label="Address"
+            name="firstName"
+            value={firstName}
             onChange={this.handleChange}
           />
+
+          <label>Last Name</label>
+          <input
+            type="text"
+            name="lastName"
+            value={lastName}
+            onChange={this.handleChange}
+          />
+
+          <label>Email</label>
+          <input
+            type="text"
+            name="email"
+            value={email}
+            onChange={this.handleChange}
+          />
+
+          <label>Address</label>
+          <input
+            type="text"
+            name="address"
+            value={address}
+            onChange={this.handleChange}
+          />
+
           <Button className="edit-profile-save-changes-btn">
             Save Changes
           </Button>
@@ -87,12 +89,6 @@ class EditProfileForm extends Component {
     )
   }
 }
-
-const form = reduxForm({
-  enableReinitialize: true,
-  destroyOnUnmount: false,
-  form: 'EditProfileForm'
-})
 
 const mapState = state => ({
   currentUser: state.user.currentUser
@@ -104,4 +100,4 @@ const mapDispatch = dispatch => ({
   modal: bool => dispatch(modal(bool))
 })
 
-export default connect(mapState, mapDispatch)(form(EditProfileForm))
+export default connect(mapState, mapDispatch)(EditProfileForm)
