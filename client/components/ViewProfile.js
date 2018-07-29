@@ -7,25 +7,11 @@ import {modal} from '../store/forms'
 import OrderHistoryCard from './Cards/OrderHistoryCard'
 
 class ViewProfile extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      showModal: false
-    }
-  }
-  closeModal() {
-    this.setState({
-      showModal: false
-    })
-  }
-  openModal() {
-    this.setState({
-      showModal: true
-    })
-  }
+
   componentDidMount() {
     this.props.fetchUser(this.props.match.params.userId)
   }
+
   render() {
     return (
       <div className="view-container">

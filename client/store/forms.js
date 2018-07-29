@@ -16,15 +16,12 @@ const InitialState = {
 export const modal = (bool) => ({type: SET_MODAL, showModal: bool});
 
 // /**
-//  * THUNK CREATORS
-//  */
-
-// /**
 //  * REDUCER
 //  */
 export default function(state = InitialState, action) {
   switch (action.type) {
     case SET_MODAL:
+      console.log("show modal?")
       return {...state, showModal: action.showModal};
     default:
       return state
