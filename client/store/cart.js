@@ -124,7 +124,6 @@ export default function(state = InitialState, action) {
         }
       }
       else {
-
         return {
           ...state,
           count: state.count + difference,
