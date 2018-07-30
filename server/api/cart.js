@@ -2,7 +2,7 @@ const router = require('express').Router()
 const {CartItem, User, Animal} = require('../db/models')
 module.exports = router
 
-router.get('/:userId', async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
     const cartItems = await CartItem.findAll({
       // explicitly select only the id and email fields - even though
@@ -10,9 +10,8 @@ router.get('/:userId', async (req, res, next) => {
       // send everything to anyone who asks!
       where: {
         paid: false,
-        userId: req.params.userId
       },
-      include: [Animal]
+      include: [User, Animal]
     })
     res.json(cartItems);
   } catch (err) {
