@@ -6,13 +6,13 @@ import history from '../history'
  */
 export const GET_USER = 'GET_USER'
 export const REMOVE_USER = 'REMOVE_USER'
-export const EDIT_PROFILE = 'EDIT_PROFILE';
+export const EDIT_PROFILE = 'EDIT_PROFILE'
 
 /**
  * INITIAL STATE
  */
 const initialState = {
-  currentUser: {},
+  currentUser: {}
 }
 
 const defaultUser = {}
@@ -37,7 +37,7 @@ export const deleteUserProfile = (userId, user) => async dispatch => {
   }
 }
 
-export const fetchUser = (userId) => async dispatch => {
+export const fetchUser = userId => async dispatch => {
   try {
     const res = await axios.get(`/users/${userId}`)
     dispatch(getUser(res.data))
@@ -50,7 +50,6 @@ export const editUser = (userId, user) => async dispatch => {
   try {
     const updated = await axios.put(`/api/users/${userId}`, user)
     dispatch(editProfile(updated.data))
-    history.push(`/users/${userId}`)
   } catch (err) {
     console.error(err)
   }
@@ -76,7 +75,7 @@ export const auth = (email, password, method) => async dispatch => {
   try {
     dispatch(getUser(res.data))
     history.push('/home')
-    localStorage.removeItem('user');
+    localStorage.removeItem('user')
   } catch (dispatchOrHistoryErr) {
     console.error(dispatchOrHistoryErr)
   }

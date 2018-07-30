@@ -5,16 +5,15 @@ import {Link} from 'react-router-dom'
 import {Button, Icon, Label} from 'semantic-ui-react'
 
 class NavCart extends Component {
-
   componentDidMount() {
     const {userId} = this.props
-    this.props.fetchCartItems(userId);
+    this.props.fetchCartItems(userId)
   }
 
   componentDidUpdate(prevProps) {
-    if(prevProps.cartLength !== this.props.cartLength) {
+    if (prevProps.cartLength !== this.props.cartLength) {
       const {userId} = this.props
-      this.props.fetchCartItems(userId);
+      this.props.fetchCartItems(userId)
     }
   }
 
@@ -25,7 +24,10 @@ class NavCart extends Component {
       <Button as="div" labelPosition="right" className="cart-nav-btn">
         <Button icon>
           <Icon name="cart" className="cart-nav-icon" />
-          <Link to="/view-cart" className="cart-link">
+          <Link
+            to={{pathname: '/view-cart', state: {prevPath: location.pathname}}}
+            className="cart-link"
+          >
             Cart
           </Link>
         </Button>
@@ -45,7 +47,7 @@ const mapState = (state, ownProps) => ({
 
 const mapDispatch = dispatch => ({
   addCartItem: cartItem => dispatch(addCartItem(cartItem)),
-  fetchCartItems: (userId) => dispatch(fetchCartItems(userId)),
+  fetchCartItems: userId => dispatch(fetchCartItems(userId))
 })
 
 export default connect(mapState, mapDispatch)(NavCart)
