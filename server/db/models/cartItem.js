@@ -8,10 +8,6 @@ const cartItem = db.define('cart-item', {
   animalId: {
     type: Sequelize.INTEGER
   },
-  paid: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: false
-  }
 });
 
 module.exports = cartItem;
