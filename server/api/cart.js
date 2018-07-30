@@ -44,7 +44,8 @@ router.post('/', async (req, res, next) => {
     const {userId} = req.body;
     let oldCartItem = await CartItem.findOne({
       where: {
-        animalId: animal.id
+        animalId: animal.id,
+        paid: false,
       },
       include: [User, Animal]
     })
@@ -68,5 +69,20 @@ router.post('/', async (req, res, next) => {
     next(err)
   }
 });
+
+router.put('/checkout/:userId', async (req, res, next) => {
+  try {
+    const {userId} = req.params;
+    const userCartItems = await CartItem.update(
+    { paid: true },
+    { where: {
+        userId: userId,
+      }
+    });
+    res.status(201).json(userCartItems);
+  } catch (err) {
+    next(err)
+  }
+})
 
 
