@@ -58,7 +58,6 @@ class EditProfileForm extends Component {
               onChange={this.handleChange}
             />
           </div>
-
           <div className="edit-profile-set-fields">
             <label className="edit-profile-label">Last Name</label>
             <input
@@ -69,7 +68,6 @@ class EditProfileForm extends Component {
               onChange={this.handleChange}
             />
           </div>
-
           <div className="edit-profile-set-fields">
             <label className="edit-profile-label">Email</label>
             <input
@@ -80,7 +78,6 @@ class EditProfileForm extends Component {
               onChange={this.handleChange}
             />
           </div>
-
           <div className="edit-profile-set-fields">
             <label className="edit-profile-label">Address</label>
             <input
@@ -91,10 +88,15 @@ class EditProfileForm extends Component {
               onChange={this.handleChange}
             />
           </div>
-
-          <Button className="edit-profile-save-changes-btn">
-            Save Changes
-          </Button>
+          {this.props.disabled && address === '' ? (
+            <Button className="disabled edit-profile-save-changes-btn">
+              Save Changes
+            </Button>
+          ) : (
+            <Button className="edit-profile-save-changes-btn">
+              Save Changes
+            </Button>
+          )}
         </form>
       </div>
     )

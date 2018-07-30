@@ -8,17 +8,8 @@ import { setOneCartItem } from '../store/cart';
 
 
 class ViewCart extends Component {
-  // constructor(props){
-  //   super(props);
-  //   this.state = {
-  //     cart: [],
-  //   }
-  // }
   
   async componentDidMount(){
-    // await this.setState({
-    //   cart: this.props.cart,
-    // })
     let localCart = localStorage.getItem("cart");
     if(localCart && !this.props.user.id){
       localCart = JSON.parse(localCart);
@@ -41,17 +32,22 @@ class ViewCart extends Component {
           </div>
           <div className="clear" />
         </div>
+        <div className="clear" />
+      </div>
     )
   }
 }
 const mapDispatch = dispatch => ({
   setOneCartItem: cartItem => dispatch(setOneCartItem(cartItem))
+  postCartItem: cartObj => dispatch(postCartItem(cartObj)),
+  modal: bool => dispatch(modal(bool))
 })
 
 const mapState = state => ({
   user: state.user.currentUser,
   cart: state.cart.list,
-  animals: state.animals
+  animals: state.animals,
+  showModal: state.forms.showModal
 })
 
 export default connect(mapState, mapDispatch)(ViewCart)

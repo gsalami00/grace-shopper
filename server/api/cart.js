@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {CartItem, User, Animal} = require('../db/models')
+const {CartItem, User, Animal, OrderItem, Order} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -74,13 +74,44 @@ router.post('/', async (req, res, next) => {
 router.put('/checkout/:userId', async (req, res, next) => {
   try {
     const {userId} = req.params;
-    const userCartItems = await CartItem.update(
-    { paid: true },
-    { where: {
+    const newOrder = await Order.create({
+        userId: userId,
+    });
+
+    const userCartItems = await CartItem.findAll({
+      where: {
+        userId: userId,
+      },
+      include: [User, Animal]
+    });
+
+    await Promise.all(userCartItems.map(async cartItem => {
+      const total = (cartItem.quantity * (cartItem.animal.price/100));
+      const item = await OrderItem.create({
+        quantity: cartItem.quantity,
+        total,
+        orderId: newOrder.id,
+        animalId: cartItem.animal.id,
+      });
+      return item;
+    }));
+
+
+    const total = await Order.findTotal(newOrder.id);
+    await Order.update(
+      { total },
+      { where : {
+        id: newOrder.id
+      }}
+    );
+
+    await CartItem.destroy({
+      where: {
         userId: userId,
       }
     });
-    res.status(201).json(userCartItems);
+
+    res.status(201)
   } catch (err) {
     next(err)
   }
