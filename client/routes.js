@@ -8,7 +8,7 @@ import {me} from './store'
 import ViewCart from './components/ViewCart'
 import ViewProfile from './components/ViewProfile'
 import Main from './components/Main'
-import Checkout from './components/Checkout'
+import CheckoutPage from './components/CheckoutPage'
 /**
  * COMPONENT
  */
@@ -33,7 +33,7 @@ class Routes extends Component {
             <Route exact path="/home" component={UserHome} />
             <Route path="/users/:userId" component={ViewProfile} />
             <Route exact path="/view-cart" component={ViewCart} />
-            <Route exact path="/checkout" component={Checkout} />
+            <Route exact path="/checkout" component={CheckoutPage} />
           </Switch>
         )}
       </Switch>

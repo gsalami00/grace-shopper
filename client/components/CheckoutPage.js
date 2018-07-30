@@ -1,19 +1,10 @@
 import React, {Component} from 'react';
-import {Button} from 'semantic-ui-react'
-import StripeCheckout from './StripeCheckout'
+import Checkout from './Checkout'
 import {fetchCartItems} from '../store/cart'
-import axios from 'axios';
 import {connect} from 'react-redux'
 
 
 class CheckoutPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      paid: false,
-    }
-    this.submit = this.submit.bind(this);
-  }
 
   componentDidMount() {
     const {userId} = this.props
@@ -21,14 +12,14 @@ class CheckoutPage extends Component {
   }
 
   render() {
-    const {totalAmount} = this.props;
+    const {totalAmount, paid} = this.props;
 
     return (
       <div className="checkout-page">
-        {this.state.paid ?
+        {!paid ?
           <div>
-            <h2>Your total is {totalAmount}</h2>
-            <StripeCheckout />
+            <h2>Your total is: <em>{totalAmount}</em></h2>
+            <Checkout />
           </div>
           :
           <h1>You paid successfully!</h1>}
@@ -40,7 +31,8 @@ class CheckoutPage extends Component {
 const mapState = state => ({
   cart: state.cart.list,
   totalAmount: state.cart.totalAmount,
-  userId: state.user.currentUser.id
+  userId: state.user.currentUser.id,
+  paid: state.cart.paid,
 })
 
 const mapDispatch = dispatch => ({
