@@ -271,6 +271,8 @@ div.field.update-cart-dropdown {
   text-align: left;
   color: #333;
   font-size: 1em;
+  font-weight: 700;
+  margin-left: 3px;
 }
 
 .edit-profile-input {

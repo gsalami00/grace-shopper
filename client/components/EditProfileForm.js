@@ -37,49 +37,60 @@ class EditProfileForm extends Component {
   }
 
   handleSubmit(evt) {
-    evt.preventDefault();
+    evt.preventDefault()
     this.props.modal(false)
     this.props.editUser(this.props.currentUser.id, this.state)
   }
 
   render() {
-    const {firstName, lastName, email, address} = this.state;
+    const {firstName, lastName, email, address} = this.state
 
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
+          <div className="edit-profile-set-fields">
+            <label className="edit-profile-label">First Name</label>
+            <input
+              className="edit-profile-input"
+              type="text"
+              name="firstName"
+              value={firstName}
+              onChange={this.handleChange}
+            />
+          </div>
 
-          <label>First Name</label>
-          <input
-            type="text"
-            name="firstName"
-            value={firstName}
-            onChange={this.handleChange}
-          />
+          <div className="edit-profile-set-fields">
+            <label className="edit-profile-label">Last Name</label>
+            <input
+              className="edit-profile-input"
+              type="text"
+              name="lastName"
+              value={lastName}
+              onChange={this.handleChange}
+            />
+          </div>
 
-          <label>Last Name</label>
-          <input
-            type="text"
-            name="lastName"
-            value={lastName}
-            onChange={this.handleChange}
-          />
+          <div className="edit-profile-set-fields">
+            <label className="edit-profile-label">Email</label>
+            <input
+              className="edit-profile-input"
+              type="text"
+              name="email"
+              value={email}
+              onChange={this.handleChange}
+            />
+          </div>
 
-          <label>Email</label>
-          <input
-            type="text"
-            name="email"
-            value={email}
-            onChange={this.handleChange}
-          />
-
-          <label>Address</label>
-          <input
-            type="text"
-            name="address"
-            value={address}
-            onChange={this.handleChange}
-          />
+          <div className="edit-profile-set-fields">
+            <label className="edit-profile-label">Address</label>
+            <input
+              className="edit-profile-input"
+              type="text"
+              name="address"
+              value={address}
+              onChange={this.handleChange}
+            />
+          </div>
 
           <Button className="edit-profile-save-changes-btn">
             Save Changes
