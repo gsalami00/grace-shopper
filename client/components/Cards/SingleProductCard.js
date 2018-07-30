@@ -31,13 +31,14 @@ class SingleProductCard extends Component {
     })
   }
   async addToCart() {
+    const userId = this.props.user.id;
     const newCartItem = {
       animal: this.props.animal,
       quantity: parseInt(this.state.quantity)
     }
     console.log('local storage get item: ', localStorage.getItem('user'))
     if (!localStorage.getItem('user')) {
-      this.props.postCartItem(newCartItem) //not hitting conditional, is it overwriting user in localstorage?
+      this.props.postCartItem(userId, newCartItem) //not hitting conditional, is it overwriting user in localstorage?
     } else {
       let cart = localStorage.getItem('cart')
         ? JSON.parse(localStorage.getItem('cart'))
@@ -161,8 +162,12 @@ class SingleProductCard extends Component {
   }
 }
 
-const mapDispatch = dispatch => ({
-  postCartItem: cartObj => dispatch(postCartItem(cartObj))
+const mapState = state => ({
+  user: state.user.currentUser,
 })
 
-export default connect(null, mapDispatch)(SingleProductCard)
+const mapDispatch = dispatch => ({
+  postCartItem: (userId, cartObj) => dispatch(postCartItem(userId, cartObj))
+})
+
+export default connect(mapState, mapDispatch)(SingleProductCard)
