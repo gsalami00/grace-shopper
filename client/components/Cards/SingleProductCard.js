@@ -8,7 +8,8 @@ class SingleProductCard extends Component {
     super(props)
     this.state = {
       showModal: false,
-      quantity: '1'
+      quantity: '1',
+      showNotification: false
     }
     this.setQuantity = this.setQuantity.bind(this)
     this.addToCart = this.addToCart.bind(this)
@@ -30,13 +31,14 @@ class SingleProductCard extends Component {
     })
   }
   async addToCart() {
+    const userId = this.props.user.id;
     const newCartItem = {
       animal: this.props.animal,
       quantity: parseInt(this.state.quantity)
     }
-    console.log("local storage get item: ", localStorage.getItem('user'));
+    console.log('local storage get item: ', localStorage.getItem('user'))
     if (!localStorage.getItem('user')) {
-      this.props.postCartItem(newCartItem)      //not hitting conditional, is it overwriting user in localstorage? 
+      this.props.postCartItem(userId, newCartItem) //not hitting conditional, is it overwriting user in localstorage?
     } else {
       let cart = localStorage.getItem('cart')
         ? JSON.parse(localStorage.getItem('cart'))
@@ -47,6 +49,14 @@ class SingleProductCard extends Component {
       localStorage.setItem('cart', stringifiedCart)
     }
     await this.setState({quantity: '1'})
+    this.setState({
+      showNotification: true
+    })
+    setTimeout(() => {
+      this.setState({
+        showNotification: false
+      })
+    }, 1750)
   }
   setCartItem(cart, newCartItem) {
     const itemIndex = cart.findIndex(
@@ -55,7 +65,7 @@ class SingleProductCard extends Component {
     if (itemIndex === -1) {
       cart.push(newCartItem)
     } else {
-      cart[itemIndex].quantity = cart[itemIndex].quantity + newCartItem.quantity;
+      cart[itemIndex].quantity = cart[itemIndex].quantity + newCartItem.quantity
     }
     return cart
   }
@@ -70,9 +80,16 @@ class SingleProductCard extends Component {
         <Card.Content extra>
           <span>${price}</span>
           <div className="right-aligned-button">
-            <Form>
+            <Form className="single-cart-quantity-form">
               <Form.Field>
-                <label>Quantity</label>
+                <label>
+                  Quantity
+                  {this.state.showNotification ? (
+                    <div className="added-to-cart-message">Added to Cart!</div>
+                  ) : (
+                    <p />
+                  )}
+                </label>
                 <input
                   type="text"
                   value={this.state.quantity}
@@ -80,7 +97,11 @@ class SingleProductCard extends Component {
                 />
               </Form.Field>
             </Form>
-            <Button animated="vertical" onClick={this.addToCart}>
+            <Button
+              className="add-cart-btn-home"
+              animated="vertical"
+              onClick={this.addToCart}
+            >
               <Button.Content hidden>Add</Button.Content>
               <Button.Content visible>
                 <Icon name="shop" />
@@ -141,8 +162,12 @@ class SingleProductCard extends Component {
   }
 }
 
-const mapDispatch = dispatch => ({
-  postCartItem: cartObj => dispatch(postCartItem(cartObj))
+const mapState = state => ({
+  user: state.user.currentUser,
 })
 
-export default connect(null, mapDispatch)(SingleProductCard)
+const mapDispatch = dispatch => ({
+  postCartItem: (userId, cartObj) => dispatch(postCartItem(userId, cartObj))
+})
+
+export default connect(mapState, mapDispatch)(SingleProductCard)
