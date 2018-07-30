@@ -1,15 +1,17 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import {connect} from 'react-redux'
 
-const CheckoutSummaryCard = (props) => {
-  let subtotal = 0;
-  let count = 0;
-  for(let i = 0; i < props.cart.length; i++){
-    const itemTotal = (props.cart[i].animal.price / 100) * props.cart[i].quantity;
-    subtotal += itemTotal;
-    count += props.cart[i].quantity;
+const CheckoutSummaryCard = props => {
+  let subtotal = 0
+  let count = 0
+  for (let i = 0; i < props.cart.length; i++) {
+    const itemTotal = props.cart[i].animal.price / 100 * props.cart[i].quantity
+    subtotal += itemTotal
+    count += props.cart[i].quantity
   }
   subtotal = subtotal.toFixed(2)
+
   return (
     <div className="ui card">
       <div className="content">
@@ -28,7 +30,7 @@ const CheckoutSummaryCard = (props) => {
             </tr>
             <tr>
               <td>Est. Taxes (8%)</td>
-              <td>{(subtotal * .08).toFixed(2)}</td>
+              <td>{(subtotal * 0.08).toFixed(2)}</td>
             </tr>
             <tr>
               <td>TOTAL</td>
@@ -39,7 +41,9 @@ const CheckoutSummaryCard = (props) => {
       </div>
       <div className="extra content">
         <button className="ui button">
-          <Link to="/checkout">
+          <Link
+            to={{pathname: '/checkout', state: {prevPath: location.pathname}}}
+          >
             Checkout
           </Link>
         </button>
@@ -48,4 +52,12 @@ const CheckoutSummaryCard = (props) => {
   )
 }
 
-export default CheckoutSummaryCard
+const mapState = state => ({
+  currentUser: state.user.currentUser
+})
+
+const mapDispatch = dispatch => ({
+  modal: bool => dispatch(modal(bool))
+})
+
+export default connect(mapState)(CheckoutSummaryCard)
