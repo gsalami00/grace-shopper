@@ -28,7 +28,7 @@ class ViewCart extends Component {
           ))}
         </div>
         <div className="checkout-card-container">
-          <CheckoutSummaryCard cart={this.props.cart} />
+          <CheckoutSummaryCard />
         </div>
         <div className="clear" />
       </div>
