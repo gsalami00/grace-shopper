@@ -1,12 +1,25 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {addCartItem} from '../store/cart'
+import {addCartItem, fetchCartItems} from '../store/cart'
 import {Link} from 'react-router-dom'
 import {Button, Icon, Label} from 'semantic-ui-react'
 
 class NavCart extends Component {
+
+  componentDidMount() {
+    const {userId} = this.props
+    this.props.fetchCartItems(userId);
+  }
+
+  componentDidUpdate(prevProps) {
+    if(prevProps.cartLength !== this.props.cartLength) {
+      const {userId} = this.props
+      this.props.fetchCartItems(userId);
+    }
+  }
+
   render() {
-    const {count} = this.props
+    const {cartLength} = this.props
 
     return (
       <Button as="div" labelPosition="right" className="cart-nav-btn">
@@ -17,7 +30,7 @@ class NavCart extends Component {
           </Link>
         </Button>
         <Label as="a" basic className="cart-count">
-          {count}
+          {cartLength}
         </Label>
       </Button>
     )
@@ -25,11 +38,14 @@ class NavCart extends Component {
 }
 
 const mapState = (state, ownProps) => ({
-  count: state.cart.count
+  count: state.cart.count,
+  cartLength: state.cart.list.length,
+  userId: state.user.currentUser.id
 })
 
 const mapDispatch = dispatch => ({
-  addCartItem: cartItem => dispatch(addCartItem(cartItem))
+  addCartItem: cartItem => dispatch(addCartItem(cartItem)),
+  fetchCartItems: (userId) => dispatch(fetchCartItems(userId)),
 })
 
 export default connect(mapState, mapDispatch)(NavCart)
