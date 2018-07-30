@@ -4,39 +4,40 @@ import CheckoutSummaryCard from './Cards/checkoutSummaryCard'
 import StripeCheckout from './StripeCheckout'
 import {Elements, StripeProvider} from 'react-stripe-elements';
 import { connect } from 'react-redux';
-import { fetchCartItems } from '../store/cart';
-import {postCartItem} from '../store/';
+import { setOneCartItem } from '../store/cart';
 
 
 class ViewCart extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      cart: [],
-    }
-  }
+  // constructor(props){
+  //   super(props);
+  //   this.state = {
+  //     cart: [],
+  //   }
+  // }
   
   async componentDidMount(){
-    await this.setState({
-      cart: this.props.cart,
-    })
+    // await this.setState({
+    //   cart: this.props.cart,
+    // })
     let localCart = localStorage.getItem("cart");
-    if(localCart){
+    if(localCart && !this.props.user.id){
       localCart = JSON.parse(localCart);
-      const storeCart = this.state.cart;
-      const newCart = storeCart.concat(localCart);
-      await this.setState({cart: newCart});
+      localCart.forEach((cartItem) => {
+        console.log(cartItem)
+        cartItem["animalId"] = cartItem.animal.id;
+        cartItem["id"] = cartItem.animal.id;
+        this.props.setOneCartItem(cartItem)
+      })
     }
-
   }
   render() {
     return (
         <div className="view-container">
           <div className="cart-card-container">
-            {this.state.cart.map((cartItem) => (<ItemCartCard key={cartItem.animal.id} cartItem={cartItem} />))}
+            {this.props.cart.map((cartItem) => (<ItemCartCard key={cartItem.animalId} cartItem={cartItem} />))}
           </div>
           <div className="checkout-card-container">
-            <CheckoutSummaryCard cart={this.state.cart} />
+            <CheckoutSummaryCard cart={this.props.cart} />
           </div>
           <div className="clear" />
         </div>
@@ -44,11 +45,11 @@ class ViewCart extends Component {
   }
 }
 const mapDispatch = dispatch => ({
-  postCartItem: cartObj => dispatch(postCartItem(cartObj)),
+  setOneCartItem: cartItem => dispatch(setOneCartItem(cartItem))
 })
 
 const mapState = state => ({
-  userId: state.user.currentUser.id,
+  user: state.user.currentUser,
   cart: state.cart.list,
   animals: state.animals
 })
