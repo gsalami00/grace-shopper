@@ -58,6 +58,7 @@ export const payCartItems = (userId) => async dispatch => {
   }
 }
 
+
 // export const setCartItem = (cartItem) => dispatch => {
 //   dispatch(setCartItems(cart))
 // }
@@ -102,14 +103,36 @@ export default function(state = InitialState, action) {
       }
     }
 
-    case SET_ONE_CART_ITEM:
-      return {
-        ...state,
-        count: state.count + 1,
-        paid: false,
-        totalAmount: state.totalAmount + ((action.cartItem.animal.price / 100) * action.cartItem.quantity),
-        list: [...state.list, action.cartItem]
+    case SET_ONE_CART_ITEM: {
+      let dupeIndex;
+      let difference;
+      
+      for(let i = 0; i < state.list.length; i++){
+        if(cartItem[i].animal.id === action.cartItem.animal.id){
+          difference = action.cartItem.quantity - cart[i].quantity;
+          dupeIndex = i;
+        }
       }
+      const priceDifference = difference * (action.cartItem.animal.price/100)
+      if (dupeIndex) {
+        state.list[i].quantity = action.cartItem.quantity;
+        return {
+          ...state,
+          count: state.count + difference,
+          totalAmount: state.totalAmount + priceDifference,
+          list: [...state.list]
+        }
+      }
+      else {
+
+        return {
+          ...state,
+          count: state.count + difference,
+          totalAmount: state.totalAmount + ((action.cartItem.animal.price / 100) * action.cartItem.quantity),
+          list: [...state.list, action.cartItem]
+        }
+      }
+    }
 
     case PAY_CART:
       return InitialState;
