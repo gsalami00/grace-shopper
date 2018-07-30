@@ -4,36 +4,38 @@ import {expect} from 'chai'
 import React from 'react'
 import enzyme, {shallow} from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-import {UserHome} from './user-home'
+// import {UserHome} from './user-home'
+import {Provider} from 'react-redux'
 
 import configureMockStore from 'redux-mock-store'
 import thunkMiddleware from 'redux-thunk'
 const middlewares = [thunkMiddleware]
 const mockStore = configureMockStore(middlewares)
-const initialState = {
-  animals: []
-}
-const store = mockStore(initialState)
 
 import ProductList from './Cards/ProductList'
+import SingleProductCard from './Cards/SingleProductCard'
 
 const adapter = new Adapter()
 enzyme.configure({adapter})
 
-describe('UserHome', () => {
-  let userHome
+// describe('UserHome', () => {
+//   let userHome
 
-  beforeEach(() => {
-    userHome = shallow(<UserHome email="cody@email.com" />)
-  })
+//   beforeEach(() => {
+//     userHome = shallow(<UserHome email="cody@email.com" />)
+//   })
 
-  it('renders the email in an h3', () => {
-    expect(userHome.find('h3').text()).to.be.equal('Welcome, cody@email.com')
-  })
-})
+//   it('renders the email in an h3', () => {
+//     expect(userHome.find('h3').text()).to.be.equal('Welcome, cody@email.com')
+//   })
+// })
 
 describe('Front-End', () => {
-  const animals = [
+  let initialState = {
+    animals: []
+  }
+  let store = mockStore(initialState)
+  let animals = [
     {
       species: 'Llama',
       imageUrl:
@@ -61,20 +63,48 @@ describe('Front-End', () => {
   ]
 
   describe('<ProductList /> component', () => {
-    let productList
-    let productListInstance
-
-    beforeEach('Create component', () => {
-      productList = shallow(<ProductList store={store} />)
-      productListInstance = productList.instance()
-      const action = {type: 'GET_ANIMALS', animals}
-      store.dispatch(action)
+    let productListWrapper
+    beforeEach('Create <ProductList />', () => {
+      productListWrapper = shallow(
+        <Provider store={store}>
+          <ProductList />
+        </Provider>
+      )
+      // productListWrapper = mount(  )
+      if (productListWrapper.instance().componentDidMount) {
+        productListWrapper.instance().componentDidMount()
+      }
     })
-
-    it('It should have an initial state with an empty animals array', () => {
-      expect(initialState).to.deep.equal({
+    it('should be a class component with an initial local state', () => {
+      expect(productListWrapper.instance()).to.exist // eslint-disable-line no-unused-expressions
+      expect(productListWrapper.instance().store.getState()).to.deep.equal({
         animals: []
       })
     })
+    it('should render an <SingleProductCard /> Component', () => {
+      expect(productListWrapper.find('SingleProductCard')).to.exist // eslint-disable-line no-unused-expressions
+    })
   })
+
+  // describe('<SingleProductCard /> component', () => {
+  //   let singleProductListWrapper
+  //   beforeEach('Create <SingleProductCard />', () => {
+  //     singleProductListWrapper = shallow(
+  //       <Provider store={store}>
+  //         <SingleProductCard />
+  //       </Provider>
+  //     )
+  //     // productListWrapper = mount(  )
+  //     if (singleProductListWrapper.instance().componentDidMount) {
+  //       singleProductListWrapper.instance().componentDidMount()
+  //     }
+  //   })
+
+  //   it('should have a method called addToCart that is invoked when the Add to Cart button is clicked', () => {
+  //     console.log(singleProductListWrapper.instance().store)
+  //     expect(typeof singleProductListWrapper.instance().addToCart()).to.equal(
+  //       'function'
+  //     )
+  //   })
+  // })
 })

@@ -1,11 +1,11 @@
 import axios from 'axios'
-import history from '../history'
 
 /**
  * ACTION TYPES
  */
-export const SET_CART_ITEMS = 'SET_CART_ITEMS';
-export const ADD_CART_ITEM = 'ADD_CART_ITEM';
+export const SET_CART_ITEMS = 'SET_CART_ITEMS'
+export const ADD_CART_ITEM = 'ADD_CART_ITEM'
+export const PAY_CART = 'PAY_CART'
 
 /**
  * INITIAL STATE
@@ -13,32 +13,46 @@ export const ADD_CART_ITEM = 'ADD_CART_ITEM';
 const InitialState = {
   list: [],
   count: 0,
+  totalAmount: 0,
+  paid: true,
 }
 
 /**
  * ACTION CREATORS
  */
-export const setCartItems = (cartItems) => ({type: SET_CART_ITEMS, cartItems});
-export const addCartItem = (cartItem) => ({type: ADD_CART_ITEM, cartItem});
+export const setCartItems = cartItems => ({type: SET_CART_ITEMS, cartItems})
+export const addCartItem = cartItem => ({type: ADD_CART_ITEM, cartItem})
+
+export const payCart = () => ({type: PAY_CART})
 
 /**
  * THUNK CREATORS
  */
-export const fetchCartItems = () => async dispatch => {
+export const fetchCartItems = (userId) => async dispatch => {
   try {
-    const { data } = await axios.get('/api/cart');
-    dispatch(setCartItems(data));
+    const {data} = await axios.get(`/api/cart/${userId}`);
+    dispatch(setCartItems(data))
   } catch (err) {
     console.error(err)
   }
 }
 
-export const postCartItem = (cartItem) => async dispatch => {
+export const postCartItem = (userId, cartItem) => async dispatch => {
   try {
-    const { data } = await axios.post('/api/cart', cartItem);
-    dispatch(addCartItem(data));
-  } catch(err) {
-    console.log(err)
+    await axios.post('/api/cart', {userId: userId, cartItem});
+    const {data} = await axios.get(`/api/cart/${userId}`);
+    dispatch(setCartItems(data))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const payCartItems = (userId) => async dispatch => {
+  try {
+    await axios.put(`/api/cart/checkout/${userId}`);
+    dispatch(payCart());
+  } catch (err) {
+    console.error(err)
   }
 }
 /**
@@ -47,10 +61,26 @@ export const postCartItem = (cartItem) => async dispatch => {
 export default function(state = InitialState, action) {
   switch (action.type) {
     case SET_CART_ITEMS:
-      return {...state, list: action.cartItems};
+      console.log(action.cartItems)
+      return {
+        ...state,
+        list: action.cartItems,
+        paid: action.cartItems.length === 0,
+        count: action.cartItems.length,
+        totalAmount: action.cartItems.reduce((acc, curr) => {
+          return Number(acc) + (curr.quantity * Number(curr.animal.price) / 100)
+        }, 0)
+      }
 
     case ADD_CART_ITEM:
-      return {...state, list: [...state.list, action.cartItem], count: state.count + 1};
+      return {
+        ...state,
+        paid: false,
+        list: [...state.list, action.cartItem],
+      }
+
+    case PAY_CART:
+      return InitialState;
 
     default:
       return state
