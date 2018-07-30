@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Card, Icon, Image, Button, Modal, Form} from 'semantic-ui-react'
-import {postCartItem} from '../../store/'
+import {postCartItem, setCartItems} from '../../store/'
 
 class SingleProductCard extends Component {
   constructor(props) {
@@ -13,7 +13,7 @@ class SingleProductCard extends Component {
     }
     this.setQuantity = this.setQuantity.bind(this)
     this.addToCart = this.addToCart.bind(this)
-    this.setCartItem = this.setCartItem.bind(this)
+    this.setNewCart = this.setNewCart.bind(this)
   }
   closeModal() {
     this.setState({
@@ -36,17 +36,17 @@ class SingleProductCard extends Component {
       animal: this.props.animal,
       quantity: parseInt(this.state.quantity)
     }
-    console.log('local storage get item: ', localStorage.getItem('user'))
-    if (!localStorage.getItem('user')) {
-      this.props.postCartItem(userId, newCartItem) //not hitting conditional, is it overwriting user in localstorage?
+    if (this.props.user.id) {
+      this.props.postCartItem(userId, newCartItem)
     } else {
       let cart = localStorage.getItem('cart')
         ? JSON.parse(localStorage.getItem('cart'))
         : []
 
-      cart = this.setCartItem(cart, newCartItem)
-      const stringifiedCart = JSON.stringify(cart)
-      localStorage.setItem('cart', stringifiedCart)
+      cart = this.setNewCart(cart, newCartItem);
+      // this.props.setCartItems(cart);
+      const stringifiedCart = JSON.stringify(cart);
+      localStorage.setItem('cart', stringifiedCart);
     }
     await this.setState({quantity: '1'})
     this.setState({
@@ -58,7 +58,7 @@ class SingleProductCard extends Component {
       })
     }, 1750)
   }
-  setCartItem(cart, newCartItem) {
+  setNewCart(cart, newCartItem) {
     const itemIndex = cart.findIndex(
       cartItem => cartItem.animal.id === this.props.animal.id
     )
@@ -164,10 +164,12 @@ class SingleProductCard extends Component {
 
 const mapState = state => ({
   user: state.user.currentUser,
+  cart: state.cart.list
 })
 
 const mapDispatch = dispatch => ({
-  postCartItem: (userId, cartObj) => dispatch(postCartItem(userId, cartObj))
+  postCartItem: (userId, cartObj) => dispatch(postCartItem(userId, cartObj)),
+  setCartItems: (cartItems) => dispatch(setCartItems(cartItems))
 })
 
 export default connect(mapState, mapDispatch)(SingleProductCard)

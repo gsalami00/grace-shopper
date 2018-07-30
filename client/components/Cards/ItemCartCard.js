@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Grid, Image, Form, Button, Icon} from 'semantic-ui-react'
-import {postCartItem} from '../../store'
+import {postCartItem, updateCartItem} from '../../store'
 
 
 class ItemCartCard extends Component {
@@ -24,16 +24,29 @@ class ItemCartCard extends Component {
     await this.setState({
       quantity: event.target.value
     })
-    // Gonna have to update with postCartItem() here
   }
   async handleClick(){
-    const newQuantity = this.state.quantity;
+    const newQuantity = parseInt(this.state.quantity);
     await this.setState({
       displayQuantity: newQuantity
     })
+    this.props.updateCartItem({animal: this.props.cartItem.animal, quantity: newQuantity});
+    if(!this.props.user.id){
+      let cart = JSON.parse(localStorage.getItem("cart"));
+      cart.forEach((cartItem) => {
+        if(cartItem.animal.id === this.props.cartItem.animal.id){
+          cartItem.quantity = this.state.quantity;
+        }
+      })
+      cart = JSON.stringify(cart)
+      localStorage.setItem("cart", cart)
+    }
   }
   render() {
-    const decimalizedPrice = (this.props.cartItem.animal.price / 100).toFixed(2)
+    let decimalizedPrice = 0;
+    if(this.props.cartItem) {
+      decimalizedPrice = (this.props.cartItem.animal.price / 100).toFixed(2)
+    }
     return (
       <div className="cart-items-container">
         <Grid>
@@ -91,8 +104,13 @@ class ItemCartCard extends Component {
   }
 }
 
-const mapDispatch = dispatch => ({
-  postCartItem: cartObj => dispatch(postCartItem(cartObj))
+const mapState = state => ({
+  user: state.user.currentUser
 })
 
-export default connect(null, mapDispatch)(ItemCartCard)
+const mapDispatch = dispatch => ({
+  postCartItem: cartObj => dispatch(postCartItem(cartObj)),
+  updateCartItem: cartItem => dispatch(updateCartItem(cartItem))
+})
+
+export default connect(mapState, mapDispatch)(ItemCartCard)
