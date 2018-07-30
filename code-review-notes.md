@@ -1,0 +1,8 @@
+- Think about cart vs completed orders
+  - How you deal with price changes, for example
+- Landing page?
+- Might want to move the 'update quantity' to the 'put' route (and use findOrCreate method)
+- Move api keys to secrets file
+- Security
+  - Public vs protected routes (Gatekeeper middleware in routes)
+  - req.user vs req.body.userID
