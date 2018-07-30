@@ -1,12 +1,15 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import OrderHistoryItemCard from './OrderHistoryItemCard'
+import {getOrderHistory} from '../../store'
 
 const CheckoutSummaryCard = props => {
+  const date = props.order.createdAt
+  const formatted = new Date(JSON.parse(JSON.stringify(date)))
   return (
     <div className="ui segments order-history-main-container">
       <div className="order-history-container">
-        <h4 className="ui block header">ORDER # 1 DETAILS</h4>
+        <h4 className="ui block header">ORDER # {props.order.id} DETAILS</h4>
         <div className="order-history-table">
           <table className="ui definition table">
             <tbody>
@@ -14,7 +17,7 @@ const CheckoutSummaryCard = props => {
                 <td>
                   <h4>Order Placed</h4>
                 </td>
-                <td>July 2, 2018</td>
+                <td>{formatted.toString().substr(0, 16)}</td>
               </tr>
               <tr>
                 <td>
@@ -27,24 +30,26 @@ const CheckoutSummaryCard = props => {
                   <h4>Ship To</h4>
                 </td>
                 <td>
-                  Gini Salamat<br />
-                  123 Chinchilla Road, Fluffy City, OH 18987
+                  {props.order.user.firstName ? props.order.user.firstName : ''}{' '}
+                  {props.order.user.lastName ? props.order.user.lastName : ''}
+                  <br />
+                  {props.order.user.address}
                 </td>
               </tr>
               <tr>
                 <td>
                   <h4>Order Total</h4>
                 </td>
-                <td>$1000</td>
+                <td>{props.order.total}</td>
               </tr>
             </tbody>
           </table>
         </div>
 
         <div className="order-history-products">
-          <OrderHistoryItemCard />
-          <OrderHistoryItemCard />
-          <OrderHistoryItemCard />
+          {props.order['order-items'].map(item => (
+            <OrderHistoryItemCard item={item} key={item.id} />
+          ))}
         </div>
         <div className="clear" />
       </div>

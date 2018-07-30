@@ -289,6 +289,21 @@ div.field.update-cart-dropdown {
   margin: 0 auto !important;
 }
 
+.species-name-order {
+  width: 190px;
+}
+@media screen and (max-width: 1100px) {
+  .species-name-order {
+    width: 130px;
+  }
+}
+
+@media screen and (max-width: 920px) {
+  .species-name-order {
+    width: 100px;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .single-card-tile {
     margin: 1em 1em !important;
