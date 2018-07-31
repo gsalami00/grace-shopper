@@ -109,7 +109,7 @@ i.modal-close::before {
   padding-top: 30px;
 }
 
-div.field.update-cart-dropdown {
+/* div.field.update-cart-dropdown {
   flex: none !important;
   width: 105px !important;
   display: inline-block !important;
@@ -128,6 +128,35 @@ div.field.update-cart-dropdown {
 
 .update-cart-dropdown i.dropdown.icon {
   width: auto !important;
+} */
+.view-cart-form-container {
+  flex-direction: column !important;
+  display: inline-block !important;
+}
+
+.view-cart-form-field-container {
+  display: inline-block;
+  float: left;
+  width: 90px !important;
+  height: 150px;
+}
+
+.update-cart-btn-container {
+  display: inline-block;
+  width: 96px;
+  margin-top: 28px;
+}
+
+.remove-cart-btn-container {
+  margin-top: 0;
+  float: left;
+  width: 96px;
+}
+
+.update-cart-button,
+.remove-cart-button {
+  height: 100%;
+  flex: none;
 }
 
 .update-cart-button .visible,
@@ -135,6 +164,7 @@ div.field.update-cart-dropdown {
 .remove-cart-button .visible,
 .remove-cart-button .hidden {
   margin: 0px 1.5em 0px 0px;
+  width: 51px;
 }
 
 .cart-items-container {
@@ -292,6 +322,64 @@ div.field.update-cart-dropdown {
 .species-name-order {
   width: 190px;
 }
+
+@media screen and (max-width: 1410px) {
+  .view-cart-form-field-container {
+    height: 100px;
+  }
+
+  .update-cart-btn-container,
+  .remove-cart-btn-container {
+    margin-left: 0px;
+  }
+}
+
+@media screen and (max-width: 1315px) {
+  .view-cart-form-field-container {
+    height: 100px;
+  }
+
+  .update-cart-btn-container {
+    margin: 28px 0px 15px 0px;
+  }
+
+  .remove-cart-btn-container {
+    margin: 0px 0px 15px 0px;
+  }
+
+  .update-cart-button .visible,
+  .update-cart-button .hidden,
+  .remove-cart-button .visible,
+  .remove-cart-button .hidden {
+    margin: 0px 0em 0px -0.25em;
+    width: 46px !important;
+    padding: 0px 0px !important;
+  }
+}
+
+@media screen and (max-width: 1225px) {
+  .view-cart-form-field-container {
+    height: 100px;
+  }
+
+  .update-cart-btn-container {
+    margin: 28px 0px 15px 0px;
+  }
+
+  .remove-cart-btn-container {
+    margin: 0px 0px 15px 0px;
+  }
+
+  .update-cart-button .visible,
+  .update-cart-button .hidden,
+  .remove-cart-button .visible,
+  .remove-cart-button .hidden {
+    margin: 0px 0em 0px -0.25em;
+    width: 46px !important;
+    padding: 0px 0px !important;
+  }
+}
+
 @media screen and (max-width: 1100px) {
   .species-name-order {
     width: 130px;
