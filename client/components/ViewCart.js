@@ -9,7 +9,7 @@ import {setOneCartItem} from '../store/cart'
 class ViewCart extends Component {
   render() {
     return (
-      <div className="view-container">
+      <div className="view-container-view-cart">
         <div className="cart-card-container">
           {this.props.cart.map(cartItem => (
             <ItemCartCard key={cartItem.animalId} cartItem={cartItem} />

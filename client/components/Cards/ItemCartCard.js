@@ -8,10 +8,29 @@ class ItemCartCard extends Component {
     super(props)
     this.state = {
       quantity: 0,
-      displayQuantity: 0
+      displayQuantity: 0,
+      lineClamp: 'line-clamp',
+      more: 'btn-read-more-show',
+      less: 'btn-read-less-hide'
     }
     this.setQuantity = this.setQuantity.bind(this)
     this.handleClick = this.handleClick.bind(this)
+    this.hideText = this.hideText.bind(this)
+    this.showText = this.showText.bind(this)
+  }
+  hideText() {
+    this.setState({
+      lineClamp: 'line-clamp',
+      more: 'btn-read-more-show',
+      less: 'btn-read-more-hide'
+    })
+  }
+  showText() {
+    this.setState({
+      lineClamp: 'no-clamp',
+      more: 'btn-read-more-hide',
+      less: 'btn-read-more-show'
+    })
   }
   async componentDidMount() {
     await this.setState({
@@ -57,7 +76,15 @@ class ItemCartCard extends Component {
           </Grid.Column>
           <Grid.Column width={4}>
             <h3>Description</h3>
-            <p>{this.props.cartItem.animal.description}</p>
+            <p className={this.state.lineClamp}>
+              {this.props.cartItem.animal.description}
+            </p>
+            <button className={this.state.more} onClick={this.showText}>
+              Read More
+            </button>
+            <button className={this.state.less} onClick={this.hideText}>
+              Read Less
+            </button>
           </Grid.Column>
           <Grid.Column width={2}>
             <h3>Price</h3>
