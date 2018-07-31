@@ -36,7 +36,7 @@ form div {
 }
 
 .right-aligned-button {
-  float: right;
+  width: 100% !important;
 }
 
 .cart-nav-btn {
@@ -58,14 +58,52 @@ form div {
 
 .single-cart-quantity-form {
   margin-bottom: 5px;
+  width: 57%;
+  margin-right: 0;
+  display: inline-block;
+  float: left;
 }
 
 .add-cart-btn-home {
-  margin-top: -2px !important;
+  width: 50px;
+  height: 38px;
+  margin-top: 16px !important;
+  padding-left: 0px !important;
+}
+.form-addtocart-btn-fields {
+  float: right;
 }
 .modal-description {
   width: 60%;
   padding-left: 5px;
+}
+.add-cart-btn-home div.hidden.content {
+  margin: -7px 0 10px 0px;
+}
+.single-cart-quantity-form div.field input#input {
+  width: 50px;
+  margin-right: 7px;
+}
+.add-cart-btn-home div.visible.content {
+  margin: 2px 0 0 16px !important;
+  display: inline-block;
+  float: left;
+}
+.home-details-btn {
+  display: inline-block !important;
+  float: right;
+  align-items: normal !important;
+  margin-top: 23px !important;
+  width: 43%;
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+  height: 38px;
+}
+.product-list-card-price {
+  width: 90px;
+  margin-right: 10px;
+  display: inline-block;
+  float: left;
 }
 
 #modal-image {
@@ -297,9 +335,12 @@ i.modal-close::before {
 
 .added-to-cart-message {
   float: right;
-  margin: 0px;
+  margin: 2px 0 0 0;
   color: lightseagreen;
   font-weight: normal;
+  font-size: 0.75em;
+  height: 0.75em;
+  padding: 0;
 }
 
 .edit-profile-set-fields {
@@ -362,13 +403,17 @@ i.modal-close::before {
 }
 
 .checkout-summary-btn {
-  background: #4183c4 none;
+  background: #4183c4 none !important;
   margin: 0 auto !important;
-  display: block;
+  display: block !important;
 }
 
 .checkout-summary-btn a {
-  color: white;
+  color: white !important;
+}
+
+.checkout-summary-btn a:hover {
+  color: #ddd;
 }
 
 .btn-read-more-hide,
