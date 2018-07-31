@@ -31,7 +31,7 @@ class SingleProductCard extends Component {
     })
   }
   async addToCart() {
-    const userId = this.props.user.id;
+    const userId = this.props.user.id
     const newCartItem = {
       animal: this.props.animal,
       quantity: parseInt(this.state.quantity)
@@ -41,11 +41,11 @@ class SingleProductCard extends Component {
     } else {
       let cart = localStorage.getItem('cart')
         ? JSON.parse(localStorage.getItem('cart'))
-        : [];
-      cart = this.setNewCart(cart, newCartItem);
-      this.props.setCartItems(cart);
-      const stringifiedCart = JSON.stringify(cart);
-      localStorage.setItem('cart', stringifiedCart);
+        : []
+      cart = this.setNewCart(cart, newCartItem)
+      this.props.setCartItems(cart)
+      const stringifiedCart = JSON.stringify(cart)
+      localStorage.setItem('cart', stringifiedCart)
     }
     await this.setState({quantity: '1'})
     this.setState({
@@ -69,94 +69,111 @@ class SingleProductCard extends Component {
     return cart
   }
   render() {
-    const price = (this.props.animal.price / 100).toFixed(2);
+    const price = (this.props.animal.price / 100).toFixed(2)
     return (
       <Card className="single-card-tile">
         <Image src={this.props.animal.imageUrl} />
         <Card.Content>
-          <Card.Header>{this.props.animal.species}</Card.Header>
+          <Card.Header>
+            {this.props.animal.species}
+            {this.state.showNotification ? (
+              <div className="added-to-cart-message">Added to Cart!</div>
+            ) : (
+              <p />
+            )}
+          </Card.Header>
         </Card.Content>
         <Card.Content extra>
-          <span>${price}</span>
           <div className="right-aligned-button">
-            <Form className="single-cart-quantity-form" onSubmit = {this.addToCart}>
-              <Form.Field>
-                <label>
-                  Quantity
-                  {this.state.showNotification ? (
+            <div className="product-list-card-price">${price}</div>
+            <div className="form-addtocart-btn-fields">
+              <Form
+                className="single-cart-quantity-form"
+                onSubmit={this.addToCart}
+              >
+                <Form.Field>
+                  <label>
+                    Quantity
+                    {/* {this.state.showNotification ? (
                     <div className="added-to-cart-message">Added to Cart!</div>
                   ) : (
                     <p />
-                  )}
-                </label>
-                <input
-                  type="text"
-                  value={this.state.quantity}
-                  onChange={this.setQuantity}
-                  id="input"
-                  pattern= "^[0-9]*$"
+                  )} */}
+                  </label>
+                  <input
+                    type="text"
+                    value={this.state.quantity}
+                    onChange={this.setQuantity}
+                    id="input"
+                    pattern="^[0-9]*$"
                   />
-
-            </Form.Field>
-            <Button
-              animated="vertical"
-              type="submit"
-              // className="add-cart-btn-home"
-            >
-              <Button.Content hidden>Add</Button.Content>
-              <Button.Content visible>
-                <Icon name="shop" />
-              </Button.Content>
-            </Button>
-          </Form>
-            <Modal
-              open={this.state.showModal}
-              trigger={
-                <Button onClick={() => this.setState({showModal: true})}>
-                  Details
+                </Form.Field>
+                <Button
+                  animated="vertical"
+                  type="submit"
+                  className="add-cart-btn-home"
+                >
+                  <Button.Content hidden>Add</Button.Content>
+                  <Button.Content visible>
+                    <Icon name="shop" />
+                  </Button.Content>
                 </Button>
-              }
-            >
-              <Modal.Header>
-                <div className="species-name">
-                  {this.props.animal.species + ' - $' + price}
-                </div>
-                <i
-                  id="exit-modal"
-                  className="modal-close window close icon"
-                  onClick={() => this.setState({showModal: false})}
-                />
-                <div className="clear" />
-              </Modal.Header>
-              <Modal.Content image>
-                <div className="image content" id="modal-image">
-                  <Image src={this.props.animal.imageUrl} />
-                </div>
-                <div className="modal-description">
-                  <Modal.Description>
-                    <p>{this.props.animal.description}</p>
-                  </Modal.Description>
-                </div>
-                <div className="modal-cart">
-                  <Form>
-                    <Form.Field>
-                      <label>Quantity</label>
-                      <input
-                        type="text"
-                        value={this.state.quantity}
-                        onChange={this.setQuantity}
-                      />
-                    </Form.Field>
-                  </Form>
-                  <Button animated="vertical" onClick={this.addToCart}>
-                    <Button.Content hidden>Add</Button.Content>
-                    <Button.Content visible>
-                      <Icon name="shop" />
-                    </Button.Content>
+              </Form>
+
+              <Modal
+                open={this.state.showModal}
+                trigger={
+                  <Button
+                    className="home-details-btn"
+                    onClick={() => this.setState({showModal: true})}
+                  >
+                    Details
                   </Button>
-                </div>
-              </Modal.Content>
-            </Modal>
+                }
+              >
+                <Modal.Header>
+                  <div className="species-name">
+                    {this.props.animal.species + ' - $' + price}
+                  </div>
+                  <i
+                    id="exit-modal"
+                    className="modal-close window close icon"
+                    onClick={() => this.setState({showModal: false})}
+                  />
+                  <div className="clear" />
+                </Modal.Header>
+                <Modal.Content image>
+                  <div className="image content" id="modal-image">
+                    <Image src={this.props.animal.imageUrl} />
+                  </div>
+                  <div className="modal-description">
+                    <Modal.Description>
+                      <p>{this.props.animal.description}</p>
+                    </Modal.Description>
+                  </div>
+                  <div className="modal-cart">
+                    <Form>
+                      <Form.Field>
+                        <label>Quantity</label>
+                        <input
+                          type="text"
+                          value={this.state.quantity}
+                          onChange={this.setQuantity}
+                        />
+                      </Form.Field>
+                    </Form>
+                    <Button animated="vertical" onClick={this.addToCart}>
+                      <Button.Content className="addtocart-btn-hidden" hidden>
+                        Add
+                      </Button.Content>
+                      <Button.Content className="addtocart-btn-visible" visible>
+                        <Icon name="shop" />
+                      </Button.Content>
+                    </Button>
+                  </div>
+                </Modal.Content>
+              </Modal>
+            </div>
           </div>
         </Card.Content>
       </Card>
@@ -171,7 +188,7 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => ({
   postCartItem: (userId, cartObj) => dispatch(postCartItem(userId, cartObj)),
-  setCartItems: (cartItems) => dispatch(setCartItems(cartItems))
+  setCartItems: cartItems => dispatch(setCartItems(cartItems))
 })
 
 export default connect(mapState, mapDispatch)(SingleProductCard)
