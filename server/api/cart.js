@@ -111,7 +111,7 @@ router.put('/checkout/:userId', async (req, res, next) => {
       }
     });
 
-    res.status(201)
+    res.sendStatus(201)
   } catch (err) {
     next(err)
   }

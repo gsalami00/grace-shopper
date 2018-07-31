@@ -78,14 +78,14 @@ export default function(state = InitialState, action) {
         return Number(acc) + (curr.quantity * Number(curr.animal.price) / 100)
       }, 0)
     }
-    
+
     case ADD_CART_ITEM:
       return {
         ...state,
         paid: false,
         list: [...state.list, action.cartItem],
       }
-    
+
     case UPDATE_CART_ITEM: {
       let cart = state.list;
       let difference;
@@ -107,7 +107,7 @@ export default function(state = InitialState, action) {
       let dupeIndex;
       let difference;
       let cart = state.list;
-      
+
       for(let i = 0; i < state.list.length; i++){
         if(cart[i].animal.id === action.cartItem.animal.id){
           difference = action.cartItem.quantity - cart[i].quantity;
@@ -135,8 +135,8 @@ export default function(state = InitialState, action) {
 
     case PAY_CART:
       return InitialState;
-    
-    
+
+
     default:
       return state
   }

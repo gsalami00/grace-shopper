@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import Checkout from './Checkout'
 import {fetchCartItems} from '../store/cart'
 import {connect} from 'react-redux'
-import {Button, Modal} from 'semantic-ui-react'
+import {Modal} from 'semantic-ui-react'
 import EditProfileForm from './EditProfileForm'
 import {checkoutModal} from '../store/forms'
 
@@ -12,8 +12,6 @@ class CheckoutPage extends Component {
     await this.props.fetchCartItems(userId);
     (currentUser.address === '' || currentUser.address === undefined ? this.props.checkoutModal(true) : this.props.checkoutModal(false));
   }
-
-
 
   render() {
     const {totalAmount, paid, modal} = this.props
@@ -32,6 +30,8 @@ class CheckoutPage extends Component {
           ) : (
             <h1>You paid successfully!</h1>
           )}
+
+
         </div>
 
         <div className="edit-container">
