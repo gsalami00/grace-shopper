@@ -13,8 +13,6 @@ class CheckoutPage extends Component {
     (currentUser.address === '' || currentUser.address === undefined ? this.props.checkoutModal(true) : this.props.checkoutModal(false));
   }
 
-
-
   render() {
     const {totalAmount, paid, modal} = this.props
     // const this.props.currentUser.address === '' ||
