@@ -72,6 +72,7 @@ router.post('/', async (req, res, next) => {
 
 router.delete('/:userId/:animalId', async (req, res, next) => {
   try {
+    console.log("req.user", req.user);
     const itemToDelete = await CartItem.findOne({
       where: {
         userId: req.params.userId,
