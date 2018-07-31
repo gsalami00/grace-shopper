@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 import {Grid, Image, Form, Button, Icon} from 'semantic-ui-react'
 import {postCartItem, updateCartItem} from '../../store'
 
-
 class ItemCartCard extends Component {
   constructor(props) {
     super(props)
@@ -11,8 +10,8 @@ class ItemCartCard extends Component {
       quantity: 0,
       displayQuantity: 0
     }
-    this.setQuantity = this.setQuantity.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    this.setQuantity = this.setQuantity.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
   async componentDidMount() {
     await this.setState({
@@ -25,26 +24,29 @@ class ItemCartCard extends Component {
       quantity: event.target.value
     })
   }
-  async handleClick(){
-    const newQuantity = parseInt(this.state.quantity);
+  async handleClick() {
+    const newQuantity = parseInt(this.state.quantity)
     await this.setState({
       displayQuantity: newQuantity
     })
-    this.props.updateCartItem({animal: this.props.cartItem.animal, quantity: newQuantity});
-    if(!this.props.user.id){
-      let cart = JSON.parse(localStorage.getItem("cart"));
-      cart.forEach((cartItem) => {
-        if(cartItem.animal.id === this.props.cartItem.animal.id){
-          cartItem.quantity = this.state.quantity;
+    this.props.updateCartItem({
+      animal: this.props.cartItem.animal,
+      quantity: newQuantity
+    })
+    if (!this.props.user.id) {
+      let cart = JSON.parse(localStorage.getItem('cart'))
+      cart.forEach(cartItem => {
+        if (cartItem.animal.id === this.props.cartItem.animal.id) {
+          cartItem.quantity = this.state.quantity
         }
       })
       cart = JSON.stringify(cart)
-      localStorage.setItem("cart", cart)
+      localStorage.setItem('cart', cart)
     }
   }
   render() {
-    let decimalizedPrice = 0;
-    if(this.props.cartItem) {
+    let decimalizedPrice = 0
+    if (this.props.cartItem) {
       decimalizedPrice = (this.props.cartItem.animal.price / 100).toFixed(2)
     }
     return (
@@ -63,40 +65,44 @@ class ItemCartCard extends Component {
           </Grid.Column>
           <Grid.Column width={4}>
             <Form>
-              <Form.Group widths="equal">
-                <Form.Field>
-                  <label>Quantity</label>
+              <Form.Group widths="equal" className="view-cart-form-container">
+                <Form.Field className="view-cart-form-field-container">
+                  <label>
+                    <h3>Quantity</h3>
+                  </label>
                   <input
                     type="text"
                     value={this.state.quantity}
                     onChange={this.setQuantity}
                   />
                 </Form.Field>
-                <Button
-                  className="update-cart-button"
-                  widths="equal"
-                  animated="vertical"
-                  onClick={this.handleClick}
-                >
-                  <Button.Content hidden>
-                    <Icon name="check" />
-                  </Button.Content>
-                  <Button.Content visible>Update</Button.Content>
-                </Button>
-                <Button className="remove-cart-button" animated="vertical">
-                  <Button.Content hidden>
-                    <Icon name="times" />
-                  </Button.Content>
-                  <Button.Content visible>Remove</Button.Content>
-                </Button>
+                <div className="update-cart-btn-container">
+                  <Button
+                    className="update-cart-button"
+                    widths="equal"
+                    animated="vertical"
+                    onClick={this.handleClick}
+                  >
+                    <Button.Content hidden>
+                      <Icon name="check" />
+                    </Button.Content>
+                    <Button.Content visible>Update</Button.Content>
+                  </Button>
+                </div>
+                <div className="remove-cart-btn-container">
+                  <Button className="remove-cart-button" animated="vertical">
+                    <Button.Content hidden>
+                      <Icon name="times" />
+                    </Button.Content>
+                    <Button.Content visible>Remove</Button.Content>
+                  </Button>
+                </div>
               </Form.Group>
             </Form>
           </Grid.Column>
           <Grid.Column width={2}>
             <h3>Item Total</h3>
-            <p>
-              {(decimalizedPrice * this.state.displayQuantity).toFixed(2)}
-            </p>
+            <p>{(decimalizedPrice * this.state.displayQuantity).toFixed(2)}</p>
           </Grid.Column>
         </Grid>
       </div>
