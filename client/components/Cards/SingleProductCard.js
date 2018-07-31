@@ -95,14 +95,12 @@ class SingleProductCard extends Component {
                   onChange={this.setQuantity}
                   id="input"
                   pattern= "^[0-9]*$"
-                  // onInvalid="setCustomValidity('mobile number must contain 10 digits ...')"
-                  // onInput="setCustomValidity('')"
                   />
 
             <Button
+              animated="vertical"
               type="submit"
-              className="add-cart-btn-home"x
-
+              className="add-cart-btn-home"
             >
               <Button.Content hidden>Add</Button.Content>
               <Button.Content visible>
