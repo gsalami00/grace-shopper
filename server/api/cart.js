@@ -70,6 +70,21 @@ router.post('/', async (req, res, next) => {
   }
 });
 
+router.delete('/:userId/:animalId', async (req, res, next) => {
+  try {
+    const itemToDelete = await CartItem.findOne({
+      where: {
+        userId: req.params.userId,
+        animalId: req.params.animalId
+      }
+    });
+    await itemToDelete.destroy();
+    res.status(201).send();
+  } catch (err) {
+    next(err);
+  }
+})
+
 router.put('/checkout/:userId', async (req, res, next) => {
   try {
     const {userId} = req.params;
@@ -115,5 +130,6 @@ router.put('/checkout/:userId', async (req, res, next) => {
     next(err)
   }
 })
+
 
 
