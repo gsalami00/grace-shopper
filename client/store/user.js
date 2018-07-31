@@ -55,6 +55,15 @@ export const editUser = (userId, user) => async dispatch => {
   }
 }
 
+export const postUser = userDetails => async dispatch => {
+  try {
+    const newUser = await axios.post('/api/users', userDetails);
+    dispatch(getUser(newUser))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me')

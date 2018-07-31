@@ -9,6 +9,7 @@ import ViewCart from './components/ViewCart'
 import ViewProfile from './components/ViewProfile'
 import Main from './components/Main'
 import CheckoutPage from './components/CheckoutPage'
+import GuestCheckoutPage from './components/GuestCheckout'
 /**
  * COMPONENT
  */
@@ -30,6 +31,7 @@ class Routes extends Component {
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/view-cart" component={ViewCart} />
+          <Route exact path="/checkout" component={GuestCheckoutPage} />
         </Switch>
         :
         <Switch>

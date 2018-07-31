@@ -41,6 +41,7 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
+    console.log("this is the req body", req.body)
     const newUser = await User.create(req.body)
     res.status(201).json(newUser)
   } catch (error) {
