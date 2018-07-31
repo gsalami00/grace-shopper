@@ -64,7 +64,7 @@ class ItemCartCard extends Component {
             <p>{decimalizedPrice}</p>
           </Grid.Column>
           <Grid.Column width={4}>
-            <Form>
+            <Form onSubmit={this.handleClick}>
               <Form.Group widths="equal" className="view-cart-form-container">
                 <Form.Field className="view-cart-form-field-container">
                   <label>
@@ -74,14 +74,15 @@ class ItemCartCard extends Component {
                     type="text"
                     value={this.state.quantity}
                     onChange={this.setQuantity}
+                    pattern= "^[0-9]*$"
                   />
                 </Form.Field>
                 <div className="update-cart-btn-container">
                   <Button
                     className="update-cart-button"
+                    type="submit"
                     widths="equal"
                     animated="vertical"
-                    onClick={this.handleClick}
                   >
                     <Button.Content hidden>
                       <Icon name="check" />
