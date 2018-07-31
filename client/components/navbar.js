@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom'
 import {logout} from '../store'
 import {Button, Icon} from 'semantic-ui-react'
 import NavCart from './NavCart'
+import GuestNavCart from './GuestNavCart'
 
 const Navbar = ({handleClick, isLoggedIn, currentUserId}) => (
   <div>
@@ -28,7 +29,7 @@ const Navbar = ({handleClick, isLoggedIn, currentUserId}) => (
             {/* The navbar will show these links before you log in */}
             <Link to="/login">Login</Link>
             <Link to="/signup">Sign Up</Link>
-            <NavCart />
+            <GuestNavCart />
           </React.Fragment>
         )}
       </div>
