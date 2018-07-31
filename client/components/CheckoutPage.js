@@ -5,8 +5,7 @@ import {connect} from 'react-redux'
 import {Modal} from 'semantic-ui-react'
 import EditProfileForm from './EditProfileForm'
 import {checkoutModal} from '../store/forms'
-import OrderHistoryCard from './Cards/OrderHistoryCard'
-import {getOrderHistory} from '../store/order'
+import CheckoutSuccess from './CheckoutSuccess'
 
 class CheckoutPage extends Component {
   async componentDidMount() {
@@ -18,7 +17,7 @@ class CheckoutPage extends Component {
   }
 
   render() {
-    const {totalAmount, paid, modal} = this.props
+    const {totalAmount, paid, modal, orders} = this.props
     // const this.props.currentUser.address === '' ||
     //     this.props.currentUser.address === undefined
     return (
@@ -32,33 +31,7 @@ class CheckoutPage extends Component {
               <Checkout />
             </div>
           ) : (
-            <React.Fragment>
-              <div className="view-container">
-                <div className="ui segments">
-                  <div className="ui segment">
-                    <h2 className="ui header">
-                      <br />
-                      <i className="check circle icon" />
-                      <div className="content">
-                        You paid successfully! Here is your order information:
-                      </div>
-                    </h2>
-                    {this.props.orders.length ? (
-                      <OrderHistoryCard
-                        order={this.props.orders[this.props.orders.length - 1]}
-                        key={this.props.orders[this.props.orders.length - 1].id}
-                        status={false}
-                      />
-                    ) : (
-                      ''
-                    )}
-                  </div>
-                </div>
-              </div>
-              {/* <div className="add-new-user-form-container">
-                <AddNewUserForm />
-              </div> */}
-            </React.Fragment>
+            <CheckoutSuccess orders={orders}/>
           )}
         </div>
 
@@ -93,7 +66,6 @@ const mapState = state => ({
 const mapDispatch = dispatch => ({
   fetchCartItems: userId => dispatch(fetchCartItems(userId)),
   checkoutModal: bool => dispatch(checkoutModal(bool)),
-  getOrderHistory: userId => dispatch(getOrderHistory(userId))
 })
 
 export default connect(mapState, mapDispatch)(CheckoutPage)
