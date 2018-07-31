@@ -4,24 +4,31 @@ import {fetchCartItems} from '../store/cart'
 import {connect} from 'react-redux'
 import {Modal} from 'semantic-ui-react'
 import GuestInfoForm from './GuestInfoForm'
+import CheckoutSuccess from './CheckoutSuccess'
+import UserSignup from './UserSignup'
 import {checkoutModal} from '../store/forms'
 
 class GuestCheckoutPage extends Component {
 
   componentDidMount() {
-
+    const localUser = localStorage.getItem('user')
+    if(localUser !== 'guest' && localUser) {
+      const userId = JSON.parse(localStorage.getItem('user')).id;
+      this.props.fetchCartItems(userId);
+      this.props.checkoutModal(false);
+    }
   }
 
   componentDidUpdate() {
     const localUser = localStorage.getItem('user')
-    if(localUser !== 'guest' && !localUser) {
+    if(localUser !== 'guest' && localUser) {
       const userId = JSON.parse(localStorage.getItem('user')).id;
-      this.props.fetchCartItems(userId);
+      this.props.checkoutModal(false);
     }
   }
 
   render() {
-    const {totalAmount, paid, modal} = this.props
+    const {totalAmount, paid, modal, orders} = this.props
 
     return (
       <React.Fragment>
@@ -34,7 +41,10 @@ class GuestCheckoutPage extends Component {
               <Checkout />
             </div>
           ) : (
-            <h1>You paid successfully!</h1>
+            <div>
+             <UserSignup history={this.props.history} />
+             <CheckoutSuccess orders={orders}/>
+            </div>
           )}
 
 
@@ -56,11 +66,13 @@ class GuestCheckoutPage extends Component {
   }
 }
 
-const mapState = state => ({
+const mapState = (state, ownProps) => ({
   totalAmount: state.cart.totalAmount,
   paid: state.cart.paid,
   modal: state.forms.checkoutModal,
   user: state.user.currentUser,
+  orders: state.order.orders,
+  history: ownProps.history,
 })
 
 const mapDispatch = dispatch => ({

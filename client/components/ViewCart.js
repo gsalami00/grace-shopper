@@ -9,12 +9,21 @@ import {setOneCartItem} from '../store/cart'
 class ViewCart extends Component {
   render() {
     return (
+
       <div className="view-container-view-cart">
-        <div className="cart-card-container">
-          {this.props.cart.map(cartItem => (
-            <ItemCartCard key={cartItem.animalId} cartItem={cartItem} />
-          ))}
-        </div>
+        {this.props.cart.length === 0 ? (
+          <h2>
+            Your cart is currently empty. Get back out there and buy some
+            fucking sheep you maniac
+          </h2>
+        ) : (
+          <div className="cart-card-container">
+            {this.props.cart.map(cartItem => (
+              <ItemCartCard key={cartItem.animalId} cartItem={cartItem} />
+            ))}
+          </div>
+        )}
+
         <div className="checkout-card-container">
           <CheckoutSummaryCard />
         </div>

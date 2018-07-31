@@ -565,3 +565,7 @@ i.modal-close::before {
 div.bitcoin-checkout {
   margin: 5% 2% 5% 2%;
 }
+
+.guest-join {
+  margin: 3% 3% 3% 3%;
+}

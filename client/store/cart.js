@@ -8,6 +8,7 @@ export const ADD_CART_ITEM = 'ADD_CART_ITEM'
 export const UPDATE_CART_ITEM = 'UPDATE_CART_ITEM'
 export const PAY_CART = 'PAY_CART'
 export const SET_ONE_CART_ITEM = 'SET_ONE_CART_ITEM'
+export const DELETE_CART_ITEM = 'DELETE_CART_ITEM'
 /**
  * INITIAL STATE
  */
@@ -25,6 +26,7 @@ export const setCartItems = cartItems => ({type: SET_CART_ITEMS, cartItems})
 export const addCartItem = cartItem => ({type: ADD_CART_ITEM, cartItem})
 export const updateCartItem = cartItem => ({type: UPDATE_CART_ITEM, cartItem})
 export const setOneCartItem = cartItem => ({type: SET_ONE_CART_ITEM, cartItem})
+export const deleteCartItem = cartItem => ({type: DELETE_CART_ITEM, cartItem})
 export const payCart = () => ({type: PAY_CART})
 
 /**
@@ -43,8 +45,7 @@ export const postCartItem = (userId, cartItem) => async dispatch => {
   try {
     await axios.post('/api/cart', {userId: userId, cartItem});
     const {data} = await axios.get(`/api/cart/${userId}`);
-    dispatch(setCartItems(data));
-    return data;
+    dispatch(setCartItems(data))
   } catch (err) {
     console.error(err)
   }
@@ -59,16 +60,21 @@ export const payCartItems = (userId) => async dispatch => {
   }
 }
 
+export const deleteItem = (userId, cartItem) => async dispatch => {
+  try {
+    await axios.delete(`/api/cart/${userId}/${cartItem.animal.id}`);
+    dispatch(deleteCartItem(cartItem));
+  } catch(err) {
+    console.log(err)
+  }
+}
 
-// export const setCartItem = (cartItem) => dispatch => {
-//   dispatch(setCartItems(cart))
-// }
-/**
- * REDUCER
+ /* REDUCER
  */
 export default function(state = InitialState, action) {
   switch (action.type) {
     case SET_CART_ITEMS:
+    console.log(action.cartItems)
     return {
       ...state,
       list: action.cartItems,
@@ -109,6 +115,7 @@ export default function(state = InitialState, action) {
       let cart = state.list;
 
       for(let i = 0; i < cart.length; i++){
+        console.log("redux cart id: ", cart[i].animal.id, "action.cartItem id: ", action.cartItem.animal.id)
 
         if(cart[i].animal.id === action.cartItem.animal.id){
           difference = action.cartItem.quantity - cart[i].quantity;
@@ -132,6 +139,14 @@ export default function(state = InitialState, action) {
           list: [...cart, action.cartItem]
         }
       }
+    }
+
+    case DELETE_CART_ITEM:
+    return {
+      ...state,
+      count: state.count - 1,
+      totalAmount: state.totalAmount - ((action.cartItem.animal.price / 100) * action.cartItem.quantity),
+      list: state.list.filter((cartItem) => (cartItem.animal.id !== action.cartItem.animal.id))
     }
 
     case PAY_CART:

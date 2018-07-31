@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Grid, Image, Form, Button, Icon} from 'semantic-ui-react'
-import {postCartItem, updateCartItem} from '../../store'
+import {postCartItem, updateCartItem, deleteItem, deleteCartItem} from '../../store'
 
 class ItemCartCard extends Component {
   constructor(props) {
@@ -15,8 +15,9 @@ class ItemCartCard extends Component {
     }
     this.setQuantity = this.setQuantity.bind(this)
     this.handleClick = this.handleClick.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
     this.hideText = this.hideText.bind(this)
-    this.showText = this.showText.bind(this)
+    this.showText = this.showText.bind(this)  
   }
   hideText() {
     this.setState({
@@ -63,6 +64,18 @@ class ItemCartCard extends Component {
       localStorage.setItem('cart', cart)
     }
   }
+  handleDelete(){
+    if (!this.props.user.id) {
+      let cart = JSON.parse(localStorage.getItem('cart'))
+      cart = cart.filter(cartItem => (cartItem.animal.id !== this.props.cartItem.animal.id))
+      cart = JSON.stringify(cart)
+      localStorage.setItem('cart', cart)
+      this.props.deleteCartItem(this.props.cartItem);
+    }
+    else {
+      this.props.deleteItem(this.props.user.id, this.props.cartItem)
+    }
+  }
   render() {
     let decimalizedPrice = 0
     if (this.props.cartItem) {
@@ -91,7 +104,7 @@ class ItemCartCard extends Component {
             <p>{decimalizedPrice}</p>
           </Grid.Column>
           <Grid.Column width={4}>
-            <Form>
+            <Form onSubmit={this.handleClick}>
               <Form.Group widths="equal" className="view-cart-form-container">
                 <Form.Field className="view-cart-form-field-container">
                   <label>
@@ -101,14 +114,15 @@ class ItemCartCard extends Component {
                     type="text"
                     value={this.state.quantity}
                     onChange={this.setQuantity}
+                    pattern= "^[0-9]*$"
                   />
                 </Form.Field>
                 <div className="update-cart-btn-container">
                   <Button
                     className="update-cart-button"
+                    type="submit"
                     widths="equal"
                     animated="vertical"
-                    onClick={this.handleClick}
                   >
                     <Button.Content hidden>
                       <Icon name="check" />
@@ -117,7 +131,7 @@ class ItemCartCard extends Component {
                   </Button>
                 </div>
                 <div className="remove-cart-btn-container">
-                  <Button className="remove-cart-button" animated="vertical">
+                  <Button className="remove-cart-button" animated="vertical" onClick ={this.handleDelete}>
                     <Button.Content hidden>
                       <Icon name="times" />
                     </Button.Content>
@@ -143,7 +157,9 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => ({
   postCartItem: cartObj => dispatch(postCartItem(cartObj)),
-  updateCartItem: cartItem => dispatch(updateCartItem(cartItem))
+  updateCartItem: cartItem => dispatch(updateCartItem(cartItem)),
+  deleteItem: (userId, cartItem) => dispatch(deleteItem(userId, cartItem)),
+  deleteCartItem: cartItem => dispatch(deleteCartItem(cartItem))
 })
 
 export default connect(mapState, mapDispatch)(ItemCartCard)

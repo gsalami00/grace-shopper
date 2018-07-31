@@ -69,7 +69,7 @@ class SingleProductCard extends Component {
     return cart
   }
   render() {
-    const price = (this.props.animal.price / 100).toFixed(2)
+    const price = (this.props.animal.price / 100).toFixed(2);
     return (
       <Card className="single-card-tile">
         <Image src={this.props.animal.imageUrl} />
@@ -79,7 +79,7 @@ class SingleProductCard extends Component {
         <Card.Content extra>
           <span>${price}</span>
           <div className="right-aligned-button">
-            <Form className="single-cart-quantity-form">
+            <Form className="single-cart-quantity-form" onSubmit = {this.addToCart}>
               <Form.Field>
                 <label>
                   Quantity
@@ -93,19 +93,22 @@ class SingleProductCard extends Component {
                   type="text"
                   value={this.state.quantity}
                   onChange={this.setQuantity}
-                />
-              </Form.Field>
-            </Form>
+                  id="input"
+                  pattern= "^[0-9]*$"
+                  />
+
             <Button
-              className="add-cart-btn-home"
               animated="vertical"
-              onClick={this.addToCart}
+              type="submit"
+              className="add-cart-btn-home"
             >
               <Button.Content hidden>Add</Button.Content>
               <Button.Content visible>
                 <Icon name="shop" />
               </Button.Content>
             </Button>
+            </Form.Field>
+          </Form>
             <Modal
               open={this.state.showModal}
               trigger={
