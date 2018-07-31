@@ -12,13 +12,13 @@ Livestockr is an e-commerce site for buying livestock. We stock a wide variety o
 Livestockr also supports cryptocurrency payments using a bitpay integration, so you can purchase livestock with a degree of privacy and anonymity unheard of in legal circles. Looking for 200 head of cattle without Uncle Sam breathing down your neck? We're your guy.
 
 
-* Technical Details
+### Technical Details
 The core boilerplate of this app was made using [Boilermaker](https://github.com/FullstackAcademy/boilermaker) Using React and Redux, the site maintains a store shared by all components. To ensure a seamless shopping experience across the site, it handles guest and logged in users differently. Using localStorage, Livestockr implements a persistent cart for guest users. Logged in users' carts are stored on the backend database.
 
 The app integrates with several third party providers. Using the Google login API, we have made it easier than ever to creat an account. On the payment end, the app integrates with Stripe and bitpay.
 
 
-* Installation
+### Installation
 Using npm: 
 ```
 npm i
