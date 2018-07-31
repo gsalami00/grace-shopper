@@ -9,7 +9,8 @@ import {setOneCartItem} from '../store/cart'
 class ViewCart extends Component {
   render() {
     return (
-      <div className="view-container">
+
+      <div className="view-container-view-cart">
         {this.props.cart.length === 0 ? (
           <h2>
             Your cart is currently empty. Get back out there and buy some
@@ -22,6 +23,7 @@ class ViewCart extends Component {
             ))}
           </div>
         )}
+
         <div className="checkout-card-container">
           <CheckoutSummaryCard />
         </div>
