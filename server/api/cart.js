@@ -40,7 +40,6 @@ router.get('/:userId', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    console.log("req.body", req.body)
     const {animal, quantity} = req.body.cartItem;
     const {userId} = req.body;
     let oldCartItem = await CartItem.findOne({

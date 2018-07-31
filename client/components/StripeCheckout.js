@@ -14,12 +14,14 @@ class StripeCheckout extends Component {
 
   async submit(ev) {
     ev.preventDefault()
-    const {userId} = this.props
+    const userId = (this.props.userId ? this.props.userId : JSON.parse(localStorage.getItem('user')).id);
+
     let {token} = await this.props.stripe.createToken({name: 'Name'})
     const res = await axios.post('/api/stripe/charge', {stripeToken: token.id})
     await this.props.payCartItems(userId)
-    console.log('response:', res)
-    this.props.getOrderHistory(userId)
+    this.props.getOrderHistory(userId);
+
+    localStorage.removeItem('user');
   }
 
   render() {

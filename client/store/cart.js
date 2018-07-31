@@ -43,7 +43,8 @@ export const postCartItem = (userId, cartItem) => async dispatch => {
   try {
     await axios.post('/api/cart', {userId: userId, cartItem});
     const {data} = await axios.get(`/api/cart/${userId}`);
-    dispatch(setCartItems(data))
+    dispatch(setCartItems(data));
+    return data;
   } catch (err) {
     console.error(err)
   }
@@ -68,7 +69,6 @@ export const payCartItems = (userId) => async dispatch => {
 export default function(state = InitialState, action) {
   switch (action.type) {
     case SET_CART_ITEMS:
-    console.log(action.cartItems)
     return {
       ...state,
       list: action.cartItems,
@@ -109,7 +109,6 @@ export default function(state = InitialState, action) {
       let cart = state.list;
 
       for(let i = 0; i < cart.length; i++){
-        console.log("redux cart id: ", cart[i].animal.id, "action.cartItem id: ", action.cartItem.animal.id)
 
         if(cart[i].animal.id === action.cartItem.animal.id){
           difference = action.cartItem.quantity - cart[i].quantity;
@@ -117,7 +116,6 @@ export default function(state = InitialState, action) {
         }
       }
       const priceDifference = difference * (action.cartItem.animal.price/100)
-      console.log('dupeIndex: ', dupeIndex)
       if (dupeIndex !== -1) {
         cart[dupeIndex].quantity = action.cartItem.quantity;
         return {
