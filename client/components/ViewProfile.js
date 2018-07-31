@@ -71,7 +71,7 @@ class ViewProfile extends Component {
               <div className="content">Order History</div>
             </h2>
             {this.props.orders.map(order => (
-              <OrderHistoryCard order={order} key={order.id} />
+              <OrderHistoryCard order={order} key={order.id} status={true} />
             ))}
           </div>
         </div>

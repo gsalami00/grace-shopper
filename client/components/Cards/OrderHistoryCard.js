@@ -23,7 +23,7 @@ const CheckoutSummaryCard = props => {
                 <td>
                   <h4>Order Status</h4>
                 </td>
-                <td>Delivered</td>
+                <td>{props.status ? 'Delivered' : 'Shipped'}</td>
               </tr>
               <tr>
                 <td>
@@ -40,7 +40,7 @@ const CheckoutSummaryCard = props => {
                 <td>
                   <h4>Order Total</h4>
                 </td>
-                <td>{props.order.total}</td>
+                <td>${props.order.total}</td>
               </tr>
             </tbody>
           </table>
