@@ -97,17 +97,17 @@ class SingleProductCard extends Component {
                   pattern= "^[0-9]*$"
                   />
 
+            </Form.Field>
             <Button
               animated="vertical"
               type="submit"
-              className="add-cart-btn-home"
+              // className="add-cart-btn-home"
             >
               <Button.Content hidden>Add</Button.Content>
               <Button.Content visible>
                 <Icon name="shop" />
               </Button.Content>
             </Button>
-            </Form.Field>
           </Form>
             <Modal
               open={this.state.showModal}
