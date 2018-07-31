@@ -104,18 +104,21 @@ export default function(state = InitialState, action) {
     }
 
     case SET_ONE_CART_ITEM: {
-      let dupeIndex;
+      let dupeIndex = -1;
       let difference;
       let cart = state.list;
 
-      for(let i = 0; i < state.list.length; i++){
+      for(let i = 0; i < cart.length; i++){
+        console.log("redux cart id: ", cart[i].animal.id, "action.cartItem id: ", action.cartItem.animal.id)
+
         if(cart[i].animal.id === action.cartItem.animal.id){
           difference = action.cartItem.quantity - cart[i].quantity;
           dupeIndex = i;
         }
       }
       const priceDifference = difference * (action.cartItem.animal.price/100)
-      if (dupeIndex) {
+      console.log('dupeIndex: ', dupeIndex)
+      if (dupeIndex !== -1) {
         cart[dupeIndex].quantity = action.cartItem.quantity;
         return {
           ...state,
@@ -128,7 +131,7 @@ export default function(state = InitialState, action) {
           ...state,
           count: state.count + 1,
           totalAmount: state.totalAmount + ((action.cartItem.animal.price / 100) * action.cartItem.quantity),
-          list: [...state.list, action.cartItem]
+          list: [...cart, action.cartItem]
         }
       }
     }

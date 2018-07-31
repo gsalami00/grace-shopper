@@ -7,18 +7,6 @@ import {connect} from 'react-redux'
 import {setOneCartItem} from '../store/cart'
 
 class ViewCart extends Component {
-  async componentDidMount() {
-    let localCart = localStorage.getItem('cart')
-    if (localCart && !this.props.user.id) {
-      localCart = JSON.parse(localCart)
-      localCart.forEach(cartItem => {
-        console.log(cartItem)
-        cartItem['animalId'] = cartItem.animal.id
-        cartItem['id'] = cartItem.animal.id
-        this.props.setOneCartItem(cartItem)
-      });
-    }
-  }
   render() {
     return (
       <div className="view-container">
