@@ -21,7 +21,6 @@ class CheckoutPage extends Component {
     const {totalAmount, paid, modal} = this.props
     // const this.props.currentUser.address === '' ||
     //     this.props.currentUser.address === undefined
-    console.log(this.props.orders[this.props.orders.length - 1])
     return (
       <React.Fragment>
         <div className="checkout-page">
