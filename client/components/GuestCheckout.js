@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 import {Modal} from 'semantic-ui-react'
 import GuestInfoForm from './GuestInfoForm'
 import CheckoutSuccess from './CheckoutSuccess'
-import UserSignup from './UserSignup'
+import UserSignup from './UserSignUp'
 import {checkoutModal} from '../store/forms'
 
 class GuestCheckoutPage extends Component {

@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
-import {Modal} from 'semantic-ui-react'
+import {Button} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
+import CoinbaseCommerceButton from 'react-coinbase-commerce';
 import axios from 'axios'
 
 export default class BitcoinCheckout extends Component {
@@ -11,18 +12,18 @@ export default class BitcoinCheckout extends Component {
 
   render() {
     return (
-      <div className="bitcoin-checkout">
-        <form action="https://test.bitpay.com/checkout" method="post" >
-          <input type="hidden" name="action" value="checkout" />
-          <input type="hidden" name="posData" value="" />
-          <input
-            type="hidden"
-            name="data"
-            value="G1X5xmLpiYkskppO62mi2Cuk6EJ9xnNQaRbNj2drL20AZbaj1DUOKFYoNpM8z2se+MzpFVqL7/2e51VrPGLNvWrddWljKuo8XdFHxlV4F9M71n133b7J4Ch0FB5TDEoWSC++O9TfVf9q7DOlFpT5hvr2cU6/9IrtFPKiIcxK1nHXVLQkHsOTrz9dxVqTwS5ani9q7q1xokHcNiLWLqL/QOlc2SItVhTFFbAPx+wxR6EcJrvnedRL/+zttLXOozyZ"
-          />
-          <input type="image" src="https://test.bitpay.com/cdn/en_US/bp-btn-pay-currencies.svg" name="submit" alt="BitPay, the easy way to pay with bitcoins." />
-        </form>
-      </div>
+        <div className="crypto">
+          <a class="buy-with-crypto"
+             href="https://commerce.coinbase.com/checkout/25e0e8c0-9b37-4703-8a27-809e31b7ef53">
+            <Button
+              size='small'
+              color='green'>
+            <span>Or...buy with Crypto</span>
+            </Button>
+          </a>
+          <script src="https://commerce.coinbase.com/v1/checkout.js?version=201807">
+          </script>
+        </div>
     )
   }
 }
