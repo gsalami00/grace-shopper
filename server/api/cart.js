@@ -9,11 +9,11 @@ router.get('/', async (req, res, next) => {
       // users' passwords are encrypted, it won't help if we just
       // send everything to anyone who asks!
       where: {
-        paid: false,
+        paid: false
       },
       include: [User, Animal]
     })
-    res.json(cartItems);
+    res.json(cartItems)
   } catch (err) {
     next(err)
   }
@@ -21,18 +21,24 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:userId', async (req, res, next) => {
   try {
-    const {userId} = req.params;
-    const cartItems = await CartItem.findAll({
-      // explicitly select only the id and email fields - even though
-      // users' passwords are encrypted, it won't help if we just
-      // send everything to anyone who asks!
-      where: {
-        userId: userId,
-        paid: false
-      },
-      include: [User, Animal]
-    })
-    res.json(cartItems);
+    const userId = req.user.id
+    console.log(typeof req.params.userId, typeof userId)
+    if (userId !== parseInt(req.params.userId)) {
+      console.log('why the fuck')
+      res.status(403).send()
+    } else {
+      const cartItems = await CartItem.findAll({
+        // explicitly select only the id and email fields - even though
+        // users' passwords are encrypted, it won't help if we just
+        // send everything to anyone who asks!
+        where: {
+          userId: userId,
+          paid: false
+        },
+        include: [User, Animal]
+      })
+      res.json(cartItems)
+    }
   } catch (err) {
     next(err)
   }
@@ -40,18 +46,18 @@ router.get('/:userId', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    const {animal, quantity} = req.body.cartItem;
-    const {userId} = req.body;
+    const {animal, quantity} = req.body.cartItem
+    const userId = req.user.id
     let oldCartItem = await CartItem.findOne({
       where: {
         animalId: animal.id,
-        paid: false,
+        paid: false
       },
       include: [User, Animal]
     })
 
     if (oldCartItem) {
-      let newQuantity = oldCartItem.quantity + quantity;
+      let newQuantity = oldCartItem.quantity + quantity
       oldCartItem = await oldCartItem.update({
         quantity: newQuantity
       })
@@ -60,77 +66,79 @@ router.post('/', async (req, res, next) => {
       const newCartItem = await CartItem.create({
         quantity: quantity,
         userId: userId,
-        animalId: animal.id,
-      });
+        animalId: animal.id
+      })
       res.status(201).json(newCartItem)
     }
-
   } catch (err) {
     next(err)
   }
-});
+})
 
 router.delete('/:userId/:animalId', async (req, res, next) => {
   try {
-    console.log("req.user", req.user);
+    if (req.user.id !== req.params.userId) res.status(403).send()
     const itemToDelete = await CartItem.findOne({
       where: {
-        userId: req.params.userId,
+        userId: req.user.id,
         animalId: req.params.animalId
       }
-    });
-    await itemToDelete.destroy();
-    res.status(201).send();
+    })
+    await itemToDelete.destroy()
+    res.status(201).send()
   } catch (err) {
-    next(err);
+    next(err)
   }
 })
 
 router.put('/checkout/:userId', async (req, res, next) => {
   try {
-    const {userId} = req.params;
-    const newOrder = await Order.create({
-        userId: userId,
-    });
+    const userId = req.user.id
+    if (userId !== parseInt(req.params.userId)) res.status(403).send()
+    else {
+      const newOrder = await Order.create({
+        userId: userId
+      })
 
-    const userCartItems = await CartItem.findAll({
-      where: {
-        userId: userId,
-      },
-      include: [User, Animal]
-    });
+      const userCartItems = await CartItem.findAll({
+        where: {
+          userId: userId
+        },
+        include: [User, Animal]
+      })
 
-    await Promise.all(userCartItems.map(async cartItem => {
-      const total = (cartItem.quantity * (cartItem.animal.price/100));
-      const item = await OrderItem.create({
-        quantity: cartItem.quantity,
-        total,
-        orderId: newOrder.id,
-        animalId: cartItem.animal.id,
-      });
-      return item;
-    }));
+      await Promise.all(
+        userCartItems.map(async cartItem => {
+          const total = cartItem.quantity * (cartItem.animal.price / 100)
+          const item = await OrderItem.create({
+            quantity: cartItem.quantity,
+            total,
+            orderId: newOrder.id,
+            animalId: cartItem.animal.id
+          })
+          return item
+        })
+      )
 
+      const total = await Order.findTotal(newOrder.id)
+      await Order.update(
+        {total},
+        {
+          where: {
+            id: newOrder.id
+          }
+        }
+      )
 
-    const total = await Order.findTotal(newOrder.id);
-    await Order.update(
-      { total },
-      { where : {
-        id: newOrder.id
-      }}
-    );
+      await CartItem.destroy({
+        where: {
+          userId: userId
+        }
+      })
 
-    await CartItem.destroy({
-      where: {
-        userId: userId,
-      }
-    });
-
-    res.sendStatus(201)
+      res.sendStatus(201)
+    }
   } catch (err) {
     next(err)
   }
 })
-
-
-
