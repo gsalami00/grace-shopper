@@ -41,10 +41,9 @@ class SingleProductCard extends Component {
     } else {
       let cart = localStorage.getItem('cart')
         ? JSON.parse(localStorage.getItem('cart'))
-        : []
-
+        : [];
       cart = this.setNewCart(cart, newCartItem);
-      // this.props.setCartItems(cart);
+      this.props.setCartItems(cart);
       const stringifiedCart = JSON.stringify(cart);
       localStorage.setItem('cart', stringifiedCart);
     }

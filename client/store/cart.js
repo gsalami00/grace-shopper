@@ -106,27 +106,27 @@ export default function(state = InitialState, action) {
     case SET_ONE_CART_ITEM: {
       let dupeIndex;
       let difference;
+      let cart = state.list;
 
       for(let i = 0; i < state.list.length; i++){
-        if(cartItem[i].animal.id === action.cartItem.animal.id){
+        if(cart[i].animal.id === action.cartItem.animal.id){
           difference = action.cartItem.quantity - cart[i].quantity;
           dupeIndex = i;
         }
       }
       const priceDifference = difference * (action.cartItem.animal.price/100)
       if (dupeIndex) {
-        state.list[i].quantity = action.cartItem.quantity;
+        cart[dupeIndex].quantity = action.cartItem.quantity;
         return {
           ...state,
-          count: state.count + difference,
           totalAmount: state.totalAmount + priceDifference,
-          list: [...state.list]
+          list: cart
         }
       }
       else {
         return {
           ...state,
-          count: state.count + difference,
+          count: state.count + 1,
           totalAmount: state.totalAmount + ((action.cartItem.animal.price / 100) * action.cartItem.quantity),
           list: [...state.list, action.cartItem]
         }

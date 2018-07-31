@@ -16,7 +16,7 @@ class ViewCart extends Component {
         cartItem['animalId'] = cartItem.animal.id
         cartItem['id'] = cartItem.animal.id
         this.props.setOneCartItem(cartItem)
-      })
+      });
     }
   }
   render() {
