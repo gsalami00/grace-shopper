@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import Checkout from './Checkout'
 import {fetchCartItems} from '../store/cart'
 import {connect} from 'react-redux'
-import {Button, Modal} from 'semantic-ui-react'
+import {Modal} from 'semantic-ui-react'
 import EditProfileForm from './EditProfileForm'
 import {checkoutModal} from '../store/forms'
 
@@ -32,6 +32,8 @@ class CheckoutPage extends Component {
           ) : (
             <h1>You paid successfully!</h1>
           )}
+
+
         </div>
 
         <div className="edit-container">

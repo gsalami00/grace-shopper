@@ -93,9 +93,11 @@ i.modal-close::before {
   height: 40px;
 }
 .view-container {
+  display: flex;
+  flex-flow: wrap column;
   width: 90%;
   height: 80%;
-  margin: 0 auto;
+  margin: 2% auto;
 }
 
 .cart-card-container {
@@ -416,4 +418,8 @@ div.field.update-cart-dropdown {
   .order-item-container {
     border-bottom: none !important;
   }
+}
+
+div.bitcoin-checkout {
+  margin: 5% 2% 5% 2%;
 }
