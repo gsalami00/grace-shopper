@@ -36,7 +36,8 @@ form div {
 }
 
 .right-aligned-button {
-  width: 100% !important;
+  width: 98% !important;
+  margin: 10px 1% 0 1%;
 }
 
 .cart-nav-btn {
@@ -57,7 +58,6 @@ form div {
 }
 
 .single-cart-quantity-form {
-  margin-bottom: 5px;
   width: 57%;
   margin-right: 0;
   display: inline-block;
@@ -71,12 +71,9 @@ form div {
   padding-left: 0px !important;
 }
 .form-addtocart-btn-fields {
-  float: right;
+  width: 100%;
 }
-.modal-description {
-  width: 60%;
-  padding-left: 5px;
-}
+
 .add-cart-btn-home div.hidden.content {
   margin: -7px 0 10px 0px;
 }
@@ -100,16 +97,30 @@ form div {
   height: 38px;
 }
 .product-list-card-price {
-  width: 90px;
-  margin-right: 10px;
+  display: inline-block;
+  float: right;
+  font-weight: normal;
+}
+
+#modal-image {
+  width: 36%;
+  height: auto;
+  padding-right: 2%;
   display: inline-block;
   float: left;
 }
 
-#modal-image {
-  width: 40%;
-  height: auto;
-  padding-right: 5px;
+.modal-description {
+  width: 98%;
+  padding-left: 2%;
+  display: block;
+  float: none;
+}
+
+.desc-modal-right {
+  width: 70%;
+  display: inline-block;
+  float: left;
 }
 
 #exit-modal {
@@ -226,7 +237,7 @@ i.modal-close::before {
 }
 
 .single-card-tile {
-  margin: 1em 1em !important;
+  margin: 1em 1% !important;
   display: inline-block !important;
   width: 23% !important;
 }
@@ -247,8 +258,24 @@ i.modal-close::before {
 }
 
 .modal-cart {
-  margin: 5px;
-  margin-top: auto;
+  width: 98%;
+  margin-left: 2%;
+  margin-top: 15px;
+}
+
+.modal-cart form {
+  width: auto;
+  float: left;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.modal-cart input {
+  width: 50px !important;
+}
+
+.modal-cart button {
+  margin-top: 23px !important;
 }
 
 .welcome-modal-container {
@@ -258,15 +285,23 @@ i.modal-close::before {
 }
 
 .modal-sign-up {
-  margin: 2% 1% 2% 0;
+  margin: 2% 2% 2% 2%;
+  display: inline-block;
+  width: 46%;
 }
 
 .modal-log-in {
-  margin: 2% 1% 2% 0;
+  padding: 2% 0 2% 4%;
+  display: inline-block;
+  width: 46%;
+  border-left: 1px solid #ccc;
 }
 
 .continue-guest {
-  margin: 4% 1% 4% 0;
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+  margin-top: 20px;
 }
 
 .StripeElement {
@@ -421,6 +456,53 @@ i.modal-close::before {
   display: none;
 }
 
+.welcome-container {
+  padding: 0px 10px 10px;
+  text-align: left;
+}
+
+.welcome-container form {
+  width: 100%;
+}
+
+.welcome-profile-set-fields {
+  width: 100%;
+  margin: 10px 0 0 0;
+}
+
+.welcome-profile-label {
+  width: 99%;
+  text-align: left;
+  color: #333;
+  font-size: 1.25em;
+  font-weight: 700;
+  margin-left: 1%;
+}
+
+.welcome-profile-input {
+  width: 97%;
+  border: 1px solid #d4d4d5;
+  height: 40px;
+  border-radius: 0.28571429rem;
+  padding: 0px 1.5%;
+  color: #333;
+}
+
+.welcome-profile-save-changes-btn {
+  display: block !important;
+  margin: 0 auto !important;
+  background: #4183c4;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 0.28571429rem;
+  cursor: pointer;
+}
+
+.welcome-btn-container {
+  margin: 20px 0px;
+}
+
 @media screen and (max-width: 1410px) {
   .view-cart-form-field-container {
     height: 100px;
@@ -493,9 +575,9 @@ i.modal-close::before {
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 990px) {
   .single-card-tile {
-    margin: 1em 1em !important;
+    margin: 2% 2% !important;
     display: inline-block !important;
     width: 44% !important;
   }
@@ -532,7 +614,7 @@ i.modal-close::before {
 
 @media screen and (max-width: 600px) {
   .single-card-tile {
-    margin: 1em 1em !important;
+    margin: 2% 2% !important;
     display: inline-block !important;
     width: 90% !important;
   }
@@ -565,7 +647,7 @@ i.modal-close::before {
   }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 514px) {
   .single-card-tile {
     margin: 1em 1em !important;
     display: inline-block !important;

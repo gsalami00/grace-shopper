@@ -4,36 +4,34 @@ import ProductList from './Cards/ProductList'
 import {Button} from 'semantic-ui-react'
 import {Login, Signup} from './auth-form'
 
-
 export default class Main extends Component {
-
-  constructor () {
-    super();
+  constructor() {
+    super()
     this.state = {
-      showRegisterModal: true,
-    };
-    this.toggleRegisterModal = this.toggleRegisterModal.bind(this);
+      showRegisterModal: true
+    }
+    this.toggleRegisterModal = this.toggleRegisterModal.bind(this)
   }
 
-  toggleRegisterModal () {
-    const { showRegisterModal } = this.state;
-    localStorage.setItem('user', 'guest');
+  toggleRegisterModal() {
+    const {showRegisterModal} = this.state
+    localStorage.setItem('user', 'guest')
 
     this.setState({
-      showRegisterModal: !showRegisterModal,
+      showRegisterModal: !showRegisterModal
     })
   }
 
-  render () {
-    const { showRegisterModal } = (localStorage.getItem("user") ? false : this.state);
+  render() {
+    const {showRegisterModal} = localStorage.getItem('user')
+      ? false
+      : this.state
 
     return (
       <div className="app-container">
-
         <ProductList />
 
-        {showRegisterModal &&
-
+        {showRegisterModal && (
           <WelcomeCard>
             <div className="welcome-model-content">
               <div className="modal-sign-up">
@@ -45,16 +43,15 @@ export default class Main extends Component {
                 <h3>Log in</h3>
                 <Login />
               </div>
-
+              <div className="clear" />
               <div className="continue-guest">
-                <Button primary onClick={this.toggleRegisterModal}>
+                <Button onClick={this.toggleRegisterModal}>
                   Continue as a guest
                 </Button>
               </div>
             </div>
-
           </WelcomeCard>
-        }
+        )}
       </div>
     )
   }

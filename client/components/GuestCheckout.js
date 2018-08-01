@@ -9,21 +9,20 @@ import UserSignup from './UserSignUp'
 import {checkoutModal} from '../store/forms'
 
 class GuestCheckoutPage extends Component {
-
   componentDidMount() {
     const localUser = localStorage.getItem('user')
-    if(localUser !== 'guest' && localUser) {
-      const userId = JSON.parse(localStorage.getItem('user')).id;
-      this.props.fetchCartItems(userId);
-      this.props.checkoutModal(false);
+    if (localUser !== 'guest' && localUser) {
+      const userId = JSON.parse(localStorage.getItem('user')).id
+      this.props.fetchCartItems(userId)
+      this.props.checkoutModal(false)
     }
   }
 
   componentDidUpdate() {
     const localUser = localStorage.getItem('user')
-    if(localUser !== 'guest' && localUser) {
-      const userId = JSON.parse(localStorage.getItem('user')).id;
-      this.props.checkoutModal(false);
+    if (localUser !== 'guest' && localUser) {
+      const userId = JSON.parse(localStorage.getItem('user')).id
+      this.props.checkoutModal(false)
     }
   }
 
@@ -42,18 +41,18 @@ class GuestCheckoutPage extends Component {
             </div>
           ) : (
             <div>
-             <UserSignup history={this.props.history} />
-             <CheckoutSuccess orders={orders}/>
+              <UserSignup history={this.props.history} />
+              <CheckoutSuccess orders={orders} />
             </div>
           )}
-
-
         </div>
 
         <div className="edit-container">
           <Modal open={modal}>
             <Modal.Header>
-              <div className="species-name">Give us your fucking data!!!</div>
+              <div className="species-name">
+                Please fill in the fields below to complete your checkout.
+              </div>
             </Modal.Header>
 
             <Modal.Content>
@@ -72,12 +71,12 @@ const mapState = (state, ownProps) => ({
   modal: state.forms.checkoutModal,
   user: state.user.currentUser,
   orders: state.order.orders,
-  history: ownProps.history,
+  history: ownProps.history
 })
 
 const mapDispatch = dispatch => ({
   checkoutModal: bool => dispatch(checkoutModal(bool)),
-  fetchCartItems: () => dispatch(fetchCartItems()),
+  fetchCartItems: () => dispatch(fetchCartItems())
 })
 
 export default connect(mapState, mapDispatch)(GuestCheckoutPage)
