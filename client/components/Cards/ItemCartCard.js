@@ -1,12 +1,9 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Grid, Image, Form, Button, Icon} from 'semantic-ui-react'
-import {
-  postCartItem,
-  updateCartItem,
-  deleteItem,
-  deleteCartItem
-} from '../../store'
+
+import {putCartItem, updateCartItem, deleteItem, deleteCartItem} from '../../store'
+
 
 class ItemCartCard extends Component {
   constructor(props) {

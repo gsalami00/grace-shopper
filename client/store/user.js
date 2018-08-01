@@ -39,7 +39,7 @@ export const deleteUserProfile = (userId, user) => async dispatch => {
 
 export const fetchUser = userId => async dispatch => {
   try {
-    const res = await axios.get(`/users/${userId}`)
+    const res = await axios.get(`/api/users/${userId}`)
     dispatch(getUser(res.data))
   } catch (err) {
     console.error(err)
@@ -57,8 +57,8 @@ export const editUser = (userId, user) => async dispatch => {
 
 export const postUser = user => async dispatch => {
   try {
-    const {data} = await axios.post('/api/users', user);
-    return data;
+    const {data} = await axios.post('/api/users', user)
+    return data
   } catch (err) {
     console.error(err)
   }
@@ -90,7 +90,12 @@ export const auth = (email, password, method) => async dispatch => {
   }
 }
 
-export const guestAuth = (userId, email, password, method) => async dispatch => {
+export const guestAuth = (
+  userId,
+  email,
+  password,
+  method
+) => async dispatch => {
   let res
   try {
     res = await axios.put(`/auth/${method}/${userId}`, {email, password})
