@@ -21,9 +21,8 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:userId', async (req, res, next) => {
   try {
-    const userId = req.user.id
-    console.log(typeof req.params.userId, typeof userId)
-    if (userId !== parseInt(req.params.userId)) {
+    const userId = (req.user ? req.user.id : Number(req.params.userId))
+    if (userId !== Number(req.params.userId)) {
       console.log('why the fuck')
       res.status(403).send()
     } else {
@@ -47,10 +46,11 @@ router.get('/:userId', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     const {animal, quantity} = req.body.cartItem
-    const userId = req.user.id
+    const userId = (req.user ? req.user.id : req.body.userId)
     let oldCartItem = await CartItem.findOne({
       where: {
         animalId: animal.id,
+        userId: userId,
         paid: false
       },
       include: [User, Animal]
@@ -75,9 +75,32 @@ router.post('/', async (req, res, next) => {
   }
 })
 
+router.put('/', async (req, res, next) => {
+  try {
+    const {animal, quantity} = req.body.cartItem
+    const userId = (req.user ? req.user.id : req.body.userId)
+
+    const cartItem = await CartItem.findOne({
+      where: {
+        userId: userId,
+        animalId: animal.id,
+        paid: false,
+      }
+    });
+
+    await cartItem.update({
+      quantity
+    });
+
+    res.status(201).json(cartItem);
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.delete('/:userId/:animalId', async (req, res, next) => {
   try {
-    if (req.user.id !== req.params.userId) res.status(403).send()
+    if (req.user.id !== Number(req.params.userId)) res.status(403).send()
     const itemToDelete = await CartItem.findOne({
       where: {
         userId: req.user.id,
@@ -93,8 +116,8 @@ router.delete('/:userId/:animalId', async (req, res, next) => {
 
 router.put('/checkout/:userId', async (req, res, next) => {
   try {
-    const userId = req.user.id
-    if (userId !== parseInt(req.params.userId)) res.status(403).send()
+    const userId = (req.user ? req.user.id : Number(req.params.userId))
+    if (userId !== Number(req.params.userId)) res.status(403).send()
     else {
       const newOrder = await Order.create({
         userId: userId
