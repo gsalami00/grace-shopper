@@ -51,6 +51,16 @@ export const postCartItem = (userId, cartItem) => async dispatch => {
   }
 }
 
+export const putCartItem = (userId, cartItem) => async dispatch => {
+  try {
+    await axios.put('/api/cart', {userId: userId, cartItem});
+    const {data} = await axios.get(`/api/cart/${userId}`);
+    dispatch(setCartItems(data))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 export const payCartItems = (userId) => async dispatch => {
   try {
     await axios.put(`/api/cart/checkout/${userId}`);

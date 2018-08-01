@@ -19,8 +19,8 @@ class StripeCheckout extends Component {
     let {token} = await this.props.stripe.createToken({name: 'Name'})
     const res = await axios.post('/api/stripe/charge', {stripeToken: token.id})
 
-    console.log("this payment", res)
     if(res) {
+      console.log("this payment was successful", res)
       await this.props.payCartItems(userId)
       this.props.getOrderHistory(userId);
 
