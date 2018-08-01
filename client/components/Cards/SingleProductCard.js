@@ -79,13 +79,13 @@ class SingleProductCard extends Component {
             {this.state.showNotification ? (
               <div className="added-to-cart-message">Added to Cart!</div>
             ) : (
-              <p />
+              <div className="product-list-card-price">${price}</div>
             )}
           </Card.Header>
         </Card.Content>
         <Card.Content extra>
           <div className="right-aligned-button">
-            <div className="product-list-card-price">${price}</div>
+            {/* <div className="product-list-card-price">${price}</div> */}
             <div className="form-addtocart-btn-fields">
               <Form
                 className="single-cart-quantity-form"
@@ -146,31 +146,39 @@ class SingleProductCard extends Component {
                   <div className="image content" id="modal-image">
                     <Image src={this.props.animal.imageUrl} />
                   </div>
-                  <div className="modal-description">
-                    <Modal.Description>
-                      <p>{this.props.animal.description}</p>
-                    </Modal.Description>
+                  <div className="desc-modal-right">
+                    <div className="modal-description">
+                      <Modal.Description>
+                        <p>{this.props.animal.description}</p>
+                      </Modal.Description>
+                    </div>
+
+                    <div className="modal-cart">
+                      <Form>
+                        <Form.Field>
+                          <label>Quantity</label>
+                          <input
+                            className="modal-cart-input"
+                            type="text"
+                            value={this.state.quantity}
+                            onChange={this.setQuantity}
+                          />
+                        </Form.Field>
+                      </Form>
+                      <Button animated="vertical" onClick={this.addToCart}>
+                        <Button.Content className="addtocart-btn-hidden" hidden>
+                          Add
+                        </Button.Content>
+                        <Button.Content
+                          className="addtocart-btn-visible"
+                          visible
+                        >
+                          <Icon name="shop" />
+                        </Button.Content>
+                      </Button>
+                    </div>
                   </div>
-                  <div className="modal-cart">
-                    <Form>
-                      <Form.Field>
-                        <label>Quantity</label>
-                        <input
-                          type="text"
-                          value={this.state.quantity}
-                          onChange={this.setQuantity}
-                        />
-                      </Form.Field>
-                    </Form>
-                    <Button animated="vertical" onClick={this.addToCart}>
-                      <Button.Content className="addtocart-btn-hidden" hidden>
-                        Add
-                      </Button.Content>
-                      <Button.Content className="addtocart-btn-visible" visible>
-                        <Icon name="shop" />
-                      </Button.Content>
-                    </Button>
-                  </div>
+                  <div className="clear" />
                 </Modal.Content>
               </Modal>
             </div>

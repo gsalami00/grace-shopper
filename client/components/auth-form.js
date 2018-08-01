@@ -10,26 +10,34 @@ const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    <div>
+    <div className="welcome-container">
       <form onSubmit={handleSubmit} name={name}>
-        <div>
-          <label htmlFor="email">
+        <div className="welcome-profile-set-fields">
+          <label className="welcome-profile-label" htmlFor="email">
             <small>Email</small>
           </label>
-          <input name="email" type="text" />
+          <input className="welcome-profile-input" name="email" type="text" />
         </div>
-        <div>
-          <label htmlFor="password">
+        <div className="welcome-profile-set-fields">
+          <label className="welcome-profile-label" htmlFor="password">
             <small>Password</small>
           </label>
-          <input name="password" type="password" />
+          <input
+            className="welcome-profile-input"
+            name="password"
+            type="password"
+          />
         </div>
-        <div>
-          <button type="submit">{displayName}</button>
+        <div className="welcome-btn-container">
+          <button className="welcome-profile-save-changes-btn" type="submit">
+            {displayName}
+          </button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
-      <a href="/auth/google" onClick={() => localStorage.removeItem("user")}>{displayName} with Google</a>
+      <a href="/auth/google" onClick={() => localStorage.removeItem('user')}>
+        {displayName} with Google
+      </a>
     </div>
   )
 }
