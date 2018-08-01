@@ -520,6 +520,11 @@ i.modal-close::before {
   margin: 20px 0px;
 }
 
+.small-title {
+  font-weight: 700;
+  font-size: 1.1em;
+}
+
 @media screen and (max-width: 1410px) {
   .view-cart-form-field-container {
     height: 100px;

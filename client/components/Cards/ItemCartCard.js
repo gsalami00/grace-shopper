@@ -94,7 +94,10 @@ class ItemCartCard extends Component {
             <Image src={this.props.cartItem.animal.imageUrl} />
           </Grid.Column>
           <Grid.Column width={4}>
-            <h3>Description</h3>
+            <h3>Item</h3>
+            <span className="small-title">
+              {this.props.cartItem.animal.species}
+            </span>
             <p className={this.state.lineClamp}>
               {this.props.cartItem.animal.description}
             </p>
