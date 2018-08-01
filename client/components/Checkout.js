@@ -7,7 +7,7 @@ export default class Checkout extends Component {
 
   render() {
     return (
-      <StripeProvider apiKey='pk_test_mH9owMXZgL6LHAojYWGhZY5Q'>
+      <StripeProvider apiKey="sk_test_FglRX3tkNhaVmQUzXQFrj2ZA">
         <div className="view-container">
           <Elements>
             <StripeCheckout />

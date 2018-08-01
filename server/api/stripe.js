@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const { CartItem, User, Animal } = require('../db/models');
 const stripe = require("stripe")("sk_test_FglRX3tkNhaVmQUzXQFrj2ZA");
 module.exports = router
 
