@@ -7,6 +7,7 @@ import {connect} from 'react-redux'
 import {setOneCartItem} from '../store/cart'
 
 class ViewCart extends Component {
+
   render() {
     return (
 
