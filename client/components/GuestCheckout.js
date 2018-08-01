@@ -31,18 +31,26 @@ class GuestCheckoutPage extends Component {
 
     return (
       <React.Fragment>
-        <div className="checkout-page">
+        <div className="checkout-page-success">
           {!paid ? (
-            <div>
-              <h2>
-                Your total is: <em>{totalAmount}</em>
-              </h2>
-              <Checkout />
+            <div className="ui segments">
+              <div className="ui segment">
+                <h2 className="ui header">
+                  <i className="credit card icon" />
+                  <div className="content">
+                    Your total is: <em>${totalAmount}</em>
+                  </div>
+                </h2>
+
+                <Checkout />
+              </div>
             </div>
           ) : (
-            <div>
-              <UserSignup history={this.props.history} />
-              <CheckoutSuccess orders={orders} />
+            <div className="ui segments">
+              <div className="ui segment">
+                <UserSignup history={this.props.history} />
+                <CheckoutSuccess orders={orders} />
+              </div>
             </div>
           )}
         </div>

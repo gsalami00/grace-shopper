@@ -157,6 +157,14 @@ i.modal-close::before {
   margin: 2% auto;
 }
 
+.checkout-page-success {
+  display: flex;
+  flex-flow: wrap column;
+  width: 70%;
+  height: 80%;
+  margin: 2% auto;
+}
+
 .checkout {
   width: 70%;
   margin: 0 auto;

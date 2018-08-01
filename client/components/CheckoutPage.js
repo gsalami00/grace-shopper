@@ -29,7 +29,7 @@ class CheckoutPage extends Component {
                 <h2 className="ui header">
                   <i className="credit card icon" />
                   <div className="content">
-                    Your total is: <em>{totalAmount}</em>
+                    Your total is: <em>${totalAmount}</em>
                   </div>
                 </h2>
                 <Checkout />
