@@ -1,12 +1,9 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Grid, Image, Form, Button, Icon} from 'semantic-ui-react'
-import {
-  postCartItem,
-  updateCartItem,
-  deleteItem,
-  deleteCartItem
-} from '../../store'
+
+import {putCartItem, updateCartItem, deleteItem, deleteCartItem} from '../../store'
+
 
 class ItemCartCard extends Component {
   constructor(props) {
@@ -50,13 +47,9 @@ class ItemCartCard extends Component {
     })
   }
   async handleClick() {
-    const newQuantity = parseInt(this.state.quantity)
+    const newQuantity = Number(this.state.quantity)
     await this.setState({
       displayQuantity: newQuantity
-    })
-    this.props.updateCartItem({
-      animal: this.props.cartItem.animal,
-      quantity: newQuantity
     })
     if (!this.props.user.id) {
       let cart = JSON.parse(localStorage.getItem('cart'))
@@ -67,6 +60,13 @@ class ItemCartCard extends Component {
       })
       cart = JSON.stringify(cart)
       localStorage.setItem('cart', cart)
+    } else {
+      const {user} = this.props;
+      const cartItem = {
+        animal: this.props.cartItem.animal,
+        quantity: newQuantity
+      }
+      await this.props.putCartItem(user.id, cartItem)
     }
   }
   handleDelete() {
@@ -128,6 +128,7 @@ class ItemCartCard extends Component {
                 </Form.Field>
                 <div className="update-cart-btn-container">
                   <Button
+                    onClick={this.handleClick}
                     className="update-cart-button"
                     type="submit"
                     widths="equal"
@@ -169,7 +170,7 @@ const mapState = state => ({
 })
 
 const mapDispatch = dispatch => ({
-  postCartItem: cartObj => dispatch(postCartItem(cartObj)),
+  putCartItem: (userId, cartObj) => dispatch(putCartItem(userId, cartObj)),
   updateCartItem: cartItem => dispatch(updateCartItem(cartItem)),
   deleteItem: (userId, cartItem) => dispatch(deleteItem(userId, cartItem)),
   deleteCartItem: cartItem => dispatch(deleteCartItem(cartItem))
