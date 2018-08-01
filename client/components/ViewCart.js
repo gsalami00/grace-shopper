@@ -10,13 +10,9 @@ class ViewCart extends Component {
 
   render() {
     return (
-
       <div className="view-container-view-cart">
         {this.props.cart.length === 0 ? (
-          <h2>
-            Your cart is currently empty. Get back out there and buy some
-            fucking sheep you maniac
-          </h2>
+          <h2>Your cart is currently empty.</h2>
         ) : (
           <div className="cart-card-container">
             {this.props.cart.map(cartItem => (

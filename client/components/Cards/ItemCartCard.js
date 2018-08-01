@@ -1,7 +1,12 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Grid, Image, Form, Button, Icon} from 'semantic-ui-react'
-import {putCartItem, updateCartItem, deleteItem, deleteCartItem} from '../../store'
+import {
+  postCartItem,
+  updateCartItem,
+  deleteItem,
+  deleteCartItem
+} from '../../store'
 
 class ItemCartCard extends Component {
   constructor(props) {
@@ -67,15 +72,16 @@ class ItemCartCard extends Component {
       await this.props.putCartItem(user.id, cartItem)
     }
   }
-  handleDelete(){
+  handleDelete() {
     if (!this.props.user.id) {
       let cart = JSON.parse(localStorage.getItem('cart'))
-      cart = cart.filter(cartItem => (cartItem.animal.id !== this.props.cartItem.animal.id))
+      cart = cart.filter(
+        cartItem => cartItem.animal.id !== this.props.cartItem.animal.id
+      )
       cart = JSON.stringify(cart)
       localStorage.setItem('cart', cart)
-      this.props.deleteCartItem(this.props.cartItem);
-    }
-    else {
+      this.props.deleteCartItem(this.props.cartItem)
+    } else {
       this.props.deleteItem(this.props.user.id, this.props.cartItem)
     }
   }
@@ -104,7 +110,7 @@ class ItemCartCard extends Component {
           </Grid.Column>
           <Grid.Column width={2}>
             <h3>Price</h3>
-            <p>{decimalizedPrice}</p>
+            <p>${decimalizedPrice}</p>
           </Grid.Column>
           <Grid.Column width={4}>
             <Form onSubmit={this.handleClick}>
@@ -117,7 +123,7 @@ class ItemCartCard extends Component {
                     type="text"
                     value={this.state.quantity}
                     onChange={this.setQuantity}
-                    pattern= "^[0-9]*$"
+                    pattern="^[0-9]*$"
                   />
                 </Form.Field>
                 <div className="update-cart-btn-container">
@@ -135,7 +141,11 @@ class ItemCartCard extends Component {
                   </Button>
                 </div>
                 <div className="remove-cart-btn-container">
-                  <Button className="remove-cart-button" animated="vertical" onClick ={this.handleDelete}>
+                  <Button
+                    className="remove-cart-button"
+                    animated="vertical"
+                    onClick={this.handleDelete}
+                  >
                     <Button.Content hidden>
                       <Icon name="times" />
                     </Button.Content>
@@ -147,7 +157,7 @@ class ItemCartCard extends Component {
           </Grid.Column>
           <Grid.Column width={2}>
             <h3>Item Total</h3>
-            <p>{(decimalizedPrice * this.state.displayQuantity).toFixed(2)}</p>
+            <p>${(decimalizedPrice * this.state.displayQuantity).toFixed(2)}</p>
           </Grid.Column>
         </Grid>
       </div>

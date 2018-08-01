@@ -22,18 +22,23 @@ class CheckoutPage extends Component {
     //     this.props.currentUser.address === undefined
     return (
       <React.Fragment>
-        <div className="checkout-page">
-          {!paid ? (
-            <div>
-              <h2>
-                Your total is: <em>{totalAmount}</em>
-              </h2>
-              <Checkout />
+        {!paid ? (
+          <div className="checkout-page">
+            <div className="ui segments">
+              <div className="ui segment">
+                <h2 className="ui header">
+                  <i className="credit card icon" />
+                  <div className="content">
+                    Your total is: <em>{totalAmount}</em>
+                  </div>
+                </h2>
+                <Checkout />
+              </div>
             </div>
-          ) : (
-            <CheckoutSuccess orders={orders}/>
-          )}
-        </div>
+          </div>
+        ) : (
+          <CheckoutSuccess orders={orders} />
+        )}
 
         <div className="edit-container">
           <Modal open={modal}>
@@ -65,7 +70,7 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => ({
   fetchCartItems: userId => dispatch(fetchCartItems(userId)),
-  checkoutModal: bool => dispatch(checkoutModal(bool)),
+  checkoutModal: bool => dispatch(checkoutModal(bool))
 })
 
 export default connect(mapState, mapDispatch)(CheckoutPage)

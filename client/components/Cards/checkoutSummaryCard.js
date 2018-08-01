@@ -25,7 +25,7 @@ class CheckoutSummaryCard extends Component {
             <tbody>
               <tr>
                 <td className="two wide column">Subtotal</td>
-                <td>{subtotal}</td>
+                <td>${subtotal}</td>
               </tr>
               <tr>
                 <td>Shipping</td>
@@ -33,11 +33,11 @@ class CheckoutSummaryCard extends Component {
               </tr>
               <tr>
                 <td>Est. Taxes (8%)</td>
-                <td>{(subtotal * 0.08).toFixed(2)}</td>
+                <td>${(subtotal * 0.08).toFixed(2)}</td>
               </tr>
               <tr>
                 <td>TOTAL</td>
-                <td>{(subtotal * 1.08).toFixed(2)}</td>
+                <td>${(subtotal * 1.08).toFixed(2)}</td>
               </tr>
             </tbody>
           </table>
