@@ -149,6 +149,23 @@ i.modal-close::before {
   margin: 2% auto;
 }
 
+.checkout-page {
+  display: flex;
+  flex-flow: wrap column;
+  width: 50%;
+  height: 80%;
+  margin: 2% auto;
+}
+
+.checkout {
+  width: 70%;
+  margin: 0 auto;
+}
+
+.checkout button {
+  margin-top: 15px !important;
+}
+
 .view-container-view-cart {
   display: block;
   flex-flow: wrap column;
@@ -698,5 +715,6 @@ div.bitcoin-checkout {
 }
 
 .crypto {
-  margin: 2% 0 2% 0;
+  margin: 15px auto;
+  width: 70%;
 }
