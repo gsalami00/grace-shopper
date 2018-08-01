@@ -17,6 +17,7 @@ class StripeCheckout extends Component {
     const userId = (this.props.userId ? this.props.userId : JSON.parse(localStorage.getItem('user')).id);
 
     let {token} = await this.props.stripe.createToken({name: 'Name'})
+    console.log(token);
     const res = await axios.post('/api/stripe/charge', {stripeToken: token.id})
 
     if(res) {
