@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const stripe = require("stripe")("sk_test_FglRX3tkNhaVmQUzXQFrj2ZA");
+const stripe = require("stripe")(process.env.STRIPE_CLIENT_SECRET);
 module.exports = router
 
 router.post('/charge', async (req, res, next) => {
