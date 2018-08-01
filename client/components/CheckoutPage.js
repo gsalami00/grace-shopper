@@ -11,7 +11,7 @@ class CheckoutPage extends Component {
   async componentDidMount() {
     const {userId, currentUser} = this.props
     await this.props.fetchCartItems(userId)
-    currentUser.address === '' || currentUser.address === undefined
+    currentUser.address === '' || !currentUser.address
       ? this.props.checkoutModal(true)
       : this.props.checkoutModal(false)
   }

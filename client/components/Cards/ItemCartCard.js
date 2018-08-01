@@ -47,10 +47,12 @@ class ItemCartCard extends Component {
     })
   }
   async handleClick() {
-    const newQuantity = Number(this.state.quantity)
-    await this.setState({
-      displayQuantity: newQuantity
-    })
+    const newQuantity = Number(this.state.quantity);
+    const updatedCartItem = {
+        animal: this.props.cartItem.animal,
+        quantity: newQuantity
+    };
+    this.props.updateCartItem(updatedCartItem);
     if (!this.props.user.id) {
       let cart = JSON.parse(localStorage.getItem('cart'))
       cart.forEach(cartItem => {
@@ -62,11 +64,7 @@ class ItemCartCard extends Component {
       localStorage.setItem('cart', cart)
     } else {
       const {user} = this.props;
-      const cartItem = {
-        animal: this.props.cartItem.animal,
-        quantity: newQuantity
-      }
-      await this.props.putCartItem(user.id, cartItem)
+      await this.props.putCartItem(user.id, updatedCartItem)
     }
   }
   handleDelete() {
