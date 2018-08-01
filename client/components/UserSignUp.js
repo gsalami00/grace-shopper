@@ -10,11 +10,11 @@ class UserSignUp extends Component {
     super()
     this.state = {
       user: {},
-      firstName:'',
+      firstName: '',
       lastName: '',
       address: '',
       email: '',
-      password: '',
+      password: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -22,20 +22,20 @@ class UserSignUp extends Component {
 
   componentDidMount() {
     const localUser = localStorage.getItem('user')
-    if(localUser !== 'guest' && localUser) {
-      const user = JSON.parse(localStorage.getItem('user'));
-      this.handleInitialize(user);
+    if (localUser !== 'guest' && localUser) {
+      const user = JSON.parse(localStorage.getItem('user'))
+      this.handleInitialize(user)
     }
   }
 
   handleInitialize(user) {
     this.setState({
-        user: user,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        address: user.address,
-        email: user.email,
-        password: user.password,
+      user: user,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      address: user.address,
+      email: user.email,
+      password: user.password
     })
   }
 
@@ -46,12 +46,12 @@ class UserSignUp extends Component {
   }
 
   async handleSubmit(evt) {
-    evt.preventDefault();
-    const {user, email, password} = this.state;
-    const formName = 'signup';
-    await this.props.guestAuth(user.id, email, password, formName);
-    this.props.history.push(`/users/${user.id}`);
-    localStorage.removeItem('user');
+    evt.preventDefault()
+    const {user, email, password} = this.state
+    const formName = 'signup'
+    await this.props.guestAuth(user.id, email, password, formName)
+    this.props.history.push(`/users/${user.id}`)
+    localStorage.removeItem('user')
   }
 
   render() {
@@ -59,7 +59,13 @@ class UserSignUp extends Component {
 
     return (
       <div className="guest-join">
-        <h2>You're one step away...just enter a password to create an account!</h2>
+        <h2 className="ui header">
+          <i className="edit icon" />
+          <div className="content">
+            You're one step away...just enter a password to create an account!
+          </div>
+        </h2>
+
         <form onSubmit={this.handleSubmit}>
           <div className="edit-profile-set-fields">
             <label className="edit-profile-label">Email</label>
@@ -86,9 +92,7 @@ class UserSignUp extends Component {
               Sign up!
             </Button>
           ) : (
-            <Button className="edit-profile-save-changes-btn">
-              Sign up!
-            </Button>
+            <Button className="edit-profile-save-changes-btn">Sign up!</Button>
           )}
         </form>
       </div>
@@ -97,12 +101,13 @@ class UserSignUp extends Component {
 }
 
 const mapState = (state, ownProps) => ({
-  history: ownProps.history,
+  history: ownProps.history
 })
 
 const mapDispatch = dispatch => ({
   editUser: userDetails => dispatch(editUser(userDetails)),
-  guestAuth: (userId, email, password, method) => dispatch(guestAuth(userId, email, password, method))
+  guestAuth: (userId, email, password, method) =>
+    dispatch(guestAuth(userId, email, password, method))
 })
 
 export default connect(mapState, mapDispatch)(UserSignUp)

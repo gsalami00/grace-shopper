@@ -5,7 +5,7 @@ const db = require('../db')
 
 const Order = db.define('order', {
   total: {
-    type: Sequelize.INTEGER
+    type: Sequelize.FLOAT
   }
 })
 
@@ -16,11 +16,13 @@ Order.findTotal = async orderId => {
     },
     include: [Animal]
   })
-  return orderItems.reduce((acc, curr) => {
+  const total = orderItems.reduce((acc, curr) => {
     return (
-      acc + Number((curr.animal.price / 100).toFixed(2)) * Number(curr.quantity)
+      Number(acc) +
+      Number(curr.animal.price / 100).toFixed(2) * Number(curr.quantity)
     )
   }, 0)
+  return (total.toFixed(2) * 1.08).toFixed(2)
 }
 
 module.exports = Order
