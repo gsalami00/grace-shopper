@@ -1,9 +1,9 @@
 # Grace Shopper - Fullstack 1806
-By: Andrew Drummond, Matt Krepp, and Gini Salamat
+By: Andrew Drummond, Matt Krepp, and Geraldine Salamat
 =======
 # Livestockr
 
-Since time immemorial, farmers have toiled under a system of livestock distribution that forced them to travel great distances to obtain livestock of dubious quality. Long have they yearned for a new regime; a regime under which they could view and obtain a healthy herd from the comfort of their own homes. 
+Since time immemorial, farmers have toiled under a system of livestock distribution that forced them to travel great distances to obtain livestock of dubious quality. Long have they yearned for a new regime; a regime under which they could view and obtain a healthy herd from the comfort of their own homes.
 
 *Those days are through.*
 
@@ -19,11 +19,11 @@ The app integrates with several third party providers. Using the Google login AP
 
 
 ### Installation
-Using npm: 
+Using npm:
 ```
 npm i
 npm run seed
 npm start
 ```
 
-Or, just visit the [deployed version](https://salty-earth-17929.herokuapp.com/checkout) of the site! 
+Or, just visit the [deployed version](https://salty-earth-17929.herokuapp.com/checkout) of the site!
